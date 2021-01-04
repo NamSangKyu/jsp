@@ -61,11 +61,15 @@
 					console.log(d);
 					var arr = d.replaceAll("\n","").split(",");
 					console.log(arr);
-					var result = "<table><tr><th>아이디</th><th>이름</th><th>나이</th><th>등급</th></tr>";
+					var result = "<table>";
 					for(i=0;i<arr.length-1;i++){
 						//한건당 한줄씩 표현
+						var txt = arr[i].split(" ");
+						result += "<tr><td>"+txt[0]+"</td>"+"<td>"+txt[1]+"</td>"+"<td>"+txt[2]+"</td>"
+						+"<td>"+txt[3]+"</td></tr>";
 					}
 					arr += "</table>";
+					$("#content_area").html(result);
 				}
 			});
 			e.preventDefault();	
