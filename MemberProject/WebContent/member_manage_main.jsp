@@ -34,9 +34,6 @@
 	width:100px;
 	padding:5px;
 }
-#title{
-	font-size:0px;
-}
 #title > li {
 	width: 230px;
 	font-size:16px;
@@ -46,7 +43,19 @@
 	padding:10px;
 	box-sizing: border-box;
 }
-
+#title{
+	font-size:0px;
+	padding:0;
+}
+table{
+	border-collapse: collapse;
+}
+td{
+	width:230px;
+	text-align: center;
+	padding:10px;
+	box-sizing: border-box;
+}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -66,7 +75,7 @@
 						//한건당 한줄씩 표현
 						var txt = arr[i].split(" ");
 						result += "<tr><td>"+txt[0]+"</td>"+"<td>"+txt[1]+"</td>"+"<td>"+txt[2]+"</td>"
-						+"<td>"+txt[3]+"</td></tr>";
+						+"<td>"+txt[3]+"</td><td></td></tr>";
 					}
 					arr += "</table>";
 					$("#content_area").html(result);
@@ -116,22 +125,25 @@
 			</ul>
 			<hr>
 			<div id="content_area">
+				<table>
 				<%
 					for(int i=0;i<list.size();i++){
 						%>
-						<p> 
-							<span><%=list.get(i).getId() %></span>
-							<span><%=list.get(i).getName() %></span>
-							<span><%=list.get(i).getAge() %></span>
-							<span><%=list.get(i).getGrade() %></span>
-							<span>
+						<tr> 
+							<td><%=list.get(i).getId() %>
+							<input type="hidden" value="<%=list.get(i).getId() %>"></td>
+							<td><input type="text" value="<%=list.get(i).getName() %>"></td>
+							<td><input type="text" value="<%=list.get(i).getAge() %>"></td>
+							<td><input type="text" value="<%=list.get(i).getGrade() %>"></td>
+							<td>
 								<a href="#">수정</a> / <a href="#">삭제</a>  
-							</span>
-						</p>
+							</td>
+						</tr>
 						<%
 					}
 				
 				%>
+				</table>
 			</div>
 		</div>
 		
