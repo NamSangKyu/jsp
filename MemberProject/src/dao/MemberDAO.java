@@ -119,7 +119,7 @@ public class MemberDAO {
 	public ArrayList<MemberVO> selectAllMemberVO() {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		String sql = "select id, name, pass, age, grade_name "
-				+ "from member, grade_list where grade_no = grade";
+				+ "from member, grade_list where grade_no = grade order by grade desc";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		 
@@ -144,7 +144,7 @@ public class MemberDAO {
 	public ArrayList<MemberVO> searchMember(String kind, String search) {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		String sql = "select id, name, pass, age, grade_name "
-				+ "from member, grade_list where grade_no = grade and " + kind + " like ?";
+				+ "from member, grade_list where grade_no = grade and " + kind + " like ? order by grade desc";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -164,6 +164,27 @@ public class MemberDAO {
 		}
 		
 		return list;
+	}
+
+	public boolean updateManageMember(MemberVO vo) {
+		String sql = "update member set name=?,age=?,grade="
+				+ "(select grade_no from grade_list where grade_name = ?) where id=?";
+		
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
+			pstmt.setString(1, vo.getName());
+			pstmt.setInt(2, vo.getAge());
+			pstmt.setString(3, vo.getGrade());
+			pstmt.setString(4, vo.getId());
+			
+			int count = pstmt.executeUpdate();
+			if(count == 0)
+				return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 	
 	

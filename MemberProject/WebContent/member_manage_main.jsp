@@ -92,6 +92,22 @@ td{
 				data += $(o).attr("name") + "=" + $(o).val()  + "&"; 
 			});
 			console.log(data);
+			//ajax를 이용하여 수정 처리 -> AjaxUpdateMember.jsp --> MemberService -> MemberDAO
+			$.ajax({
+				url : "ajax_update_member.jsp",
+				data : data,
+				method:"get",
+				success:function(d){
+					d = Boolean(d);
+					if(d){
+						console.log("수정 성공");
+					}else{
+						console.log("수정 실패");						
+					}
+					$("#search")[0].reset();
+					$("#btn_submit").click();	
+				}
+			});
 		});
 	});	
 </script>

@@ -49,6 +49,9 @@ public class MemberService {
 	public void updateMemberVO(MemberVO vo) throws MemberException {
 		dao.updateMember(vo);
 	}
+	public boolean updateManageMemberVO(MemberVO vo) throws MemberException {
+		return dao.updateManageMember(vo);
+	}
 	public ArrayList<MemberVO> selectAllMemberVO(){
 		return dao.selectAllMemberVO();
 	}
