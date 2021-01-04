@@ -83,7 +83,16 @@ td{
 			});
 			e.preventDefault();	
 		});
-		
+		$(".update").click(function() {
+			//alert($(this).parent().parent().index());//현재 버튼이 속해있는 tr을 선택, 인덱스 번호 조회
+			var data = "";
+			$.each($(this).parent().parent().find("input"), function(i,o) {
+				//데이터를 조립 쿼리 스트링 id=A0001&name=홍길동
+				console.log(i,$(o).val());
+				data += $(o).attr("name") + "=" + $(o).val()  + "&"; 
+			});
+			console.log(data);
+		});
 	});	
 </script>
 </head>
@@ -131,12 +140,12 @@ td{
 						%>
 						<tr> 
 							<td><%=list.get(i).getId() %>
-							<input type="hidden" value="<%=list.get(i).getId() %>"></td>
-							<td><input type="text" value="<%=list.get(i).getName() %>"></td>
-							<td><input type="text" value="<%=list.get(i).getAge() %>"></td>
-							<td><input type="text" value="<%=list.get(i).getGrade() %>"></td>
+							<input type="hidden" name="id" value="<%=list.get(i).getId() %>"></td>
+							<td><input type="text" name="name" value="<%=list.get(i).getName() %>"></td>
+							<td><input type="text" name="age" value="<%=list.get(i).getAge() %>"></td>
+							<td><input type="text" name="grade" value="<%=list.get(i).getGrade() %>"></td>
 							<td>
-								<a href="#">수정</a> / <a href="#">삭제</a>  
+								<a href="#" class="update">수정</a> / <a href="#" class="delete">삭제</a>  
 							</td>
 						</tr>
 						<%
