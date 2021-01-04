@@ -59,6 +59,32 @@ td{
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+	function update_member(obj) {
+		//alert($(this).parent().parent().index());//현재 버튼이 속해있는 tr을 선택, 인덱스 번호 조회
+		var data = "";
+		$.each($(obj).parent().parent().find("input"), function(i,o) {
+			//데이터를 조립 쿼리 스트링 id=A0001&name=홍길동
+			console.log(i,$(o).val());
+			data += $(o).attr("name") + "=" + $(o).val()  + "&"; 
+		});
+		console.log(data);
+		//ajax를 이용하여 수정 처리 -> AjaxUpdateMember.jsp --> MemberService -> MemberDAO
+		$.ajax({
+			url : "ajax_update_member.jsp",
+			data : data,
+			method:"get",
+			success:function(d){
+				d = Boolean(d);
+				if(d){
+					console.log("수정 성공");
+				}else{
+					console.log("수정 실패");						
+				}
+				$("#search")[0].reset();
+				$("#btn_submit").click();	
+			}
+		});
+	}
 	$(function() {
 		$("#btn_submit").click(function(e) {
 			var data = $("#search").serialize();//kind=id&name=검색어
@@ -74,40 +100,26 @@ td{
 					for(i=0;i<arr.length-1;i++){
 						//한건당 한줄씩 표현
 						var txt = arr[i].split(" ");
-						result += "<tr><td>"+txt[0]+"</td>"+"<td>"+txt[1]+"</td>"+"<td>"+txt[2]+"</td>"
-						+"<td>"+txt[3]+"</td><td></td></tr>";
+						result += 
+						"<tr><td>"+txt[0]+"<input type='hidden' name='id' value='"+txt[0]+"'></td>"
+						+"<td><input type='text' name='name' value='"+txt[1]+"'></td>"
+						+"<td><input type='text' name='age' value='"+txt[2]+"'></td>"
+						+"<td><input type='text' name='grade' value='"+txt[3]+"'></td>"
+						+"<td><a href='#' class='update'>수정</a> / <a href='#' class='delete'>삭제</a></td></tr>";
 					}
 					arr += "</table>";
 					$("#content_area").html(result);
+					//동적엘리먼트에 대한 이벤트 처리
+					$(".update").click(function() {
+						update_member($(this));
+					});			
+					
 				}
 			});
 			e.preventDefault();	
 		});
 		$(".update").click(function() {
-			//alert($(this).parent().parent().index());//현재 버튼이 속해있는 tr을 선택, 인덱스 번호 조회
-			var data = "";
-			$.each($(this).parent().parent().find("input"), function(i,o) {
-				//데이터를 조립 쿼리 스트링 id=A0001&name=홍길동
-				console.log(i,$(o).val());
-				data += $(o).attr("name") + "=" + $(o).val()  + "&"; 
-			});
-			console.log(data);
-			//ajax를 이용하여 수정 처리 -> AjaxUpdateMember.jsp --> MemberService -> MemberDAO
-			$.ajax({
-				url : "ajax_update_member.jsp",
-				data : data,
-				method:"get",
-				success:function(d){
-					d = Boolean(d);
-					if(d){
-						console.log("수정 성공");
-					}else{
-						console.log("수정 실패");						
-					}
-					$("#search")[0].reset();
-					$("#btn_submit").click();	
-				}
-			});
+			update_member($(this));
 		});
 	});	
 </script>
