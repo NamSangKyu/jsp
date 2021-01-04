@@ -188,7 +188,22 @@ public class MemberDAO {
 	}
 	
 	
-	
+	public boolean deleteMember(String id) {
+		String sql = "delete from member where id=?";
+		
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
+			pstmt.setString(1, id);
+
+			int count = pstmt.executeUpdate();
+			if(count == 0)
+				return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 	
 	
 	

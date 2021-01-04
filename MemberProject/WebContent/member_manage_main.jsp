@@ -85,6 +85,26 @@ td{
 			}
 		});
 	}
+	function delete_member(obj) {
+		var data = "";
+		data = "id=" + $(obj).parent().parent().find("input").first().val();
+		console.log(data);
+		$.ajax({
+			url : "ajax_delete_member.jsp",
+			data : data,
+			method:"get",
+			success:function(d){
+				d = Boolean(d);
+				if(d){
+					console.log("삭제 성공");
+				}else{
+					console.log("삭제 실패");						
+				}
+				$("#search")[0].reset();
+				$("#btn_submit").click();	
+			}
+		});
+	}
 	$(function() {
 		$("#btn_submit").click(function(e) {
 			var data = $("#search").serialize();//kind=id&name=검색어
@@ -113,13 +133,18 @@ td{
 					$(".update").click(function() {
 						update_member($(this));
 					});			
-					
+					$(".delete").click(function() {
+						delete_member($(this));
+					});			
 				}
 			});
 			e.preventDefault();	
 		});
 		$(".update").click(function() {
 			update_member($(this));
+		});
+		$(".delete").click(function() {
+			delete_member($(this));
 		});
 	});	
 </script>
