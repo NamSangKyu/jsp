@@ -48,6 +48,31 @@
 }
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(function() {
+		$("#btn_submit").click(function(e) {
+			var data = $("#search").serialize();//kind=id&name=검색어
+			$.ajax({
+				url : "SearchProcess.jsp",
+				data : data,
+				method : 'get',
+				success : function(d) {
+					console.log(d);
+					var arr = d.replaceAll("\n","").split(",");
+					console.log(arr);
+					var result = "<table><tr><th>아이디</th><th>이름</th><th>나이</th><th>등급</th></tr>";
+					for(i=0;i<arr.length-1;i++){
+						//한건당 한줄씩 표현
+					}
+					arr += "</table>";
+				}
+			});
+			e.preventDefault();	
+		});
+		
+	});	
+</script>
 </head>
 <body>
 	<%
@@ -66,13 +91,15 @@
 	
 	<div class="container">
 		<div id="menu_bar">
-			<select name="kind">
-				<option value="id">아이디</option>
-				<option value="name">이름</option>
-				<option value="grade">등급</option>
-			</select>
-			<input type="text" name="search">
-			<button id="btn_submit">검색</button>
+			<form id="search">
+				<select name="kind">
+					<option value="id">아이디</option>
+					<option value="name">이름</option>
+					<option value="grade">등급</option>
+				</select>
+				<input type="text" name="search">
+				<button id="btn_submit">검색</button>
+			</form>
 		</div>
 		<hr>
 		<div id="content">

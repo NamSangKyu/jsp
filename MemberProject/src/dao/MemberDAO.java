@@ -140,6 +140,31 @@ public class MemberDAO {
 		
 		return list;
 	}
+
+	public ArrayList<MemberVO> searchMember(String kind, String search) {
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+		String sql = "select id, name, pass, age, grade_name "
+				+ "from member, grade_list where grade_no = grade and " + kind + " like ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
+			pstmt.setString(1, "%" + search + "%");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(new MemberVO(rs.getString(1), null, rs.getString(2), 
+						rs.getInt(4), rs.getString(5)));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.getInstance().close(pstmt, rs);
+		}
+		
+		return list;
+	}
 	
 	
 	

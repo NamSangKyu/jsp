@@ -52,6 +52,11 @@ public class MemberService {
 	public ArrayList<MemberVO> selectAllMemberVO(){
 		return dao.selectAllMemberVO();
 	}
+	public ArrayList<MemberVO> searchMember(String kind, String search){
+		return dao.searchMember(kind,search);
+	}
+	
+	
 }
 
 
