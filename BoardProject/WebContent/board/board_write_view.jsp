@@ -75,7 +75,7 @@
 	<jsp:include page="/template/header.jsp" flush="false"></jsp:include>
 	<div id="container">
 		<h2>글쓰기 페이지</h2>
-		<form action="" method="post">
+		<form action="process/board_write_process.jsp" method="post">
 			<table>
 				<tr>
 					<th>제목</th>
