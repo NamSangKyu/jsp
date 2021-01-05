@@ -17,7 +17,7 @@
 	<jsp:include page="/template/header.jsp" flush="false"></jsp:include>
 	<div id="container">
 		메인페이지
-		
+		<a href="<%=request.getContextPath() %>/board/board_write_view.jsp">글쓰기</a>
 	</div>
 	<jsp:include page="/template/footer.jsp" flush="false"></jsp:include>
 	
