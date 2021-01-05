@@ -29,6 +29,12 @@ create sequence bno_seq start with 1 NOMAXVALUE;
 create sequence cno_seq start with 1 NOMAXVALUE;
 
 
+--게시판 글목록
+select * from board;
+select sysdate from dual;
+
+
+
 
 
 
