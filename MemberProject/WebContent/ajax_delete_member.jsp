@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String id = request.getParameter("id");
-	
+	 
 	if(MemberDAO.getInstance().deleteMember(id)){
 		out.write("true");
 	}else{
