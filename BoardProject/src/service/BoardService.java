@@ -1,5 +1,7 @@
 package service;
 
+import java.util.ArrayList;
+
 import dao.BoardDAO;
 import dto.BoardDTO;
 
@@ -27,7 +29,9 @@ public class BoardService {
 		dao.addCount(bno);
 		return dao.selectBoardDTO(bno);
 	}
-	
+	public ArrayList<BoardDTO> selectBoardList(){
+		return dao.selectBoardList();		
+	}
 }	
 
 

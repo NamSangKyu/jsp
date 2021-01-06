@@ -3,6 +3,7 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import config.DBManager;
 import dto.BoardDTO;
@@ -144,7 +145,28 @@ public class BoardDAO {
 		
 		return result;
 	}
-	
+
+	public ArrayList<BoardDTO> selectBoardList() {
+		String sql = "select * from board";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(new BoardDTO(rs.getInt(1), rs.getString(2), rs.getString(3),
+						rs.getInt(4), rs.getString(5), rs.getString(6),
+						rs.getInt(7), rs.getInt(8)));	
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, rs);
+		}
+		return list;
+	}
 	
 }
 
