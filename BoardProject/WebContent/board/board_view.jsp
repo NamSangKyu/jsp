@@ -93,14 +93,7 @@
 </script>
 </head>
 <body>
-<%
-		if(session.getAttribute("login") == null || (boolean) session.getAttribute("login")==false){
-			%>
-				<script>
-					location.href="<%=request.getContextPath()%>/index.jsp";
-				</script>
-			<%
-		}
+<% 
 		//보낸 페이지 번호 
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		BoardDTO dto = BoardService.getInstance().selectBoardDTO(bno);

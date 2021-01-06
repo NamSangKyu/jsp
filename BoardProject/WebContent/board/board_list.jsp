@@ -16,20 +16,60 @@
 		margin:0 auto;
 	}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(function(){
+		$(".board tr").click(function(){
+			if($(this).index() == 0) return;
+			var bno = $(this).find("td").first().html();
+			location.href = "<%=request.getContextPath()%>/board/board_view.jsp?bno="+bno;
+			console.log($(this).find("td").first().html());
+		});
+	});
+</script>
 </head>
 <body> 
 <%
 	ArrayList<BoardDTO> list = BoardService.getInstance().selectBoardList();
 %>
-
+<style>
+	.board{
+		margin:20px auto;
+		border-collapse: collapse;
+	}
+	th, td{
+		padding: 10px;
+		text-align: center;
+	}
+	th{
+		border-top : 2px solid black;
+		border-bottom : 2px solid black;
+	}
+	td{
+		border-top : 1px solid black;
+		border-bottom : 1px solid black;
+	}
+	tr:last-child > td {
+		border-bottom : 2px solid black;
+	}
+	.title{
+		width:500px;	
+	}
+	.writer{
+		width:150px;	
+	}
+	.date{
+		width:200px;
+	}
+</style>
 <jsp:include page="/template/header.jsp" flush="false"></jsp:include>
 	<div id="container">
-		<table>
+		<table class="board">
 			<tr>
 				<th>글번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
+				<th class="title">제목</th>
+				<th class="writer">작성자</th>
+				<th class="date">작성일</th>
 				<th>조회수</th>
 				<th>좋아요</th>
 				<th>싫어요</th>
