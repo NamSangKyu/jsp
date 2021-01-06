@@ -99,6 +99,53 @@ public class BoardDAO {
 		
 	}
 	
+	public void addLikeHate(int bno, int mode) {
+		String sql;
+		if(mode == 0) 
+			sql = "update board set blike = blike + 1 where bno=?"; 
+		else 
+			sql = "update board set bhate = bhate + 1 where bno=?"; 
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
+	}
+	public int selectLikeHate(int bno, int mode) {
+		int result=0;
+		String sql;
+		if(mode == 0) 
+			sql = "select blike from board where bno=?"; 
+		else 
+			sql = "select bhate from board where bno=?"; 
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, rs);
+		}
+		
+		
+		return result;
+	}
+	
+	
 }
 
 

@@ -69,6 +69,28 @@
 		text-decoration: none;
 	}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(function(){
+		$(".btn_like").click(function(){
+			// 0 - like, 1 - hate
+			// bno;
+			var obj = $(this);
+			d = "bno=<%=request.getParameter("bno")%>&mode="+$(this).index();
+			$.ajax({
+				url : "process/board_like_hate_process.jsp",
+				data : d,
+				method : "get",
+				success:function(result){
+					result = result.trim();
+					console.log(result, result.length);
+					$(obj).children("span").html(result);
+					
+				}				
+			});
+		});
+	});
+</script>
 </head>
 <body>
 <%
@@ -86,7 +108,6 @@
 	<jsp:include page="/template/header.jsp" flush="false"></jsp:include>
 	<div id="container">
 		<h2>글조회 페이지</h2>
-		<form action="process/board_write_process.jsp" method="post">
 			<table>
 				<tr>
 					<th>제목</th>
@@ -151,7 +172,6 @@
 					</td>
 				</tr>
 			</table>
-		</form>
 	</div>
 	<jsp:include page="/template/footer.jsp" flush="false"></jsp:include>
 </body>
