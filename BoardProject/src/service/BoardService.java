@@ -22,6 +22,12 @@ public class BoardService {
 		return dao.selectBoardDTO(bno);
 	}
 	
+	public BoardDTO selectBoardDTO(int bno) {
+		//조회수 카운트
+		dao.addCount(bno);
+		return dao.selectBoardDTO(bno);
+	}
+	
 }	
 
 

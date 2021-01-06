@@ -58,7 +58,45 @@ public class BoardDAO {
 	}
 
 	public BoardDTO selectBoardDTO(int bno) {
-		return null;
+		String sql = "select * from board where bno = ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardDTO dto = null;
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto = new BoardDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),
+						rs.getString(5), rs.getString(6), rs.getInt(7), rs.getInt(8));	
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, rs);
+		}
+		return dto;
+	}
+
+	public void addCount(int bno) {
+		String sql = "update board set bcount=bcount + 1 where bno = ?";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
+		
+		
+		
 	}
 	
 }

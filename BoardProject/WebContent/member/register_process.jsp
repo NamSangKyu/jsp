@@ -2,7 +2,7 @@
 <%@page import="vo.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page errorPage="error.jsp" %>
+<%@ page errorPage="/error/error.jsp" %>
 <%
 	request.setCharacterEncoding("utf-8");//post 방식 반드시 인코딩
 	String id = request.getParameter("id");

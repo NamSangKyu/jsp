@@ -15,5 +15,18 @@
 	BoardService.getInstance().insertBoardDTO(dto);
 	 
 	//작성한 게시글 조회 페이지 board_view.jsp 게시글 번호
-	//response.sendRedirect("../board_view.jsp");
+	response.sendRedirect("../board_view.jsp?bno="+dto.getBno());
 %>
+
+
+
+
+
+
+
+
+
+
+
+
+
