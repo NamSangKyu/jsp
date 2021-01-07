@@ -118,7 +118,7 @@ td{
 					var result = "<table>";
 					var arr = json.result;
 					for(i=0;i<arr.length;i++){
-						//한건당 한줄씩 표현
+						//한건당 한줄씩 표현 
 						result += 
 						"<tr><td>"+arr[i].id+"<input type='hidden' name='id' value='"+arr[i].id+"'></td>"
 						+"<td><input type='text' name='name' value='"+arr[i].name+"'></td>"
