@@ -114,20 +114,19 @@ td{
 				method : 'get',
 				success : function(d) {
 					console.log(d);
-					var arr = d.replaceAll("\n","").split(",");
-					console.log(arr);
+					var json = JSON.parse(d);
 					var result = "<table>";
-					for(i=0;i<arr.length-1;i++){
+					var arr = json.result;
+					for(i=0;i<arr.length;i++){
 						//한건당 한줄씩 표현
-						var txt = arr[i].split(" ");
 						result += 
-						"<tr><td>"+txt[0]+"<input type='hidden' name='id' value='"+txt[0]+"'></td>"
-						+"<td><input type='text' name='name' value='"+txt[1]+"'></td>"
-						+"<td><input type='text' name='age' value='"+txt[2]+"'></td>"
-						+"<td><input type='text' name='grade' value='"+txt[3]+"'></td>"
+						"<tr><td>"+arr[i].id+"<input type='hidden' name='id' value='"+arr[i].id+"'></td>"
+						+"<td><input type='text' name='name' value='"+arr[i].name+"'></td>"
+						+"<td><input type='text' name='age' value='"+arr[i].age+"'></td>"
+						+"<td><input type='text' name='grade' value='"+arr[i].grade+"'></td>"
 						+"<td><a href='#' class='update'>수정</a> / <a href='#' class='delete'>삭제</a></td></tr>";
 					}
-					arr += "</table>";
+					result += "</table>";
 					$("#content_area").html(result);
 					//동적엘리먼트에 대한 이벤트 처리
 					$(".update").click(function() {
@@ -154,7 +153,7 @@ td{
 		if(session.getAttribute("login") == null || !session.getAttribute("grade").equals("master")){
 			%>
 				<script>
-					location.href="main.jsp";
+					location.href="<%=request.getContextPath()%>/index.jsp";
 				</script>
 			<%
 		}
