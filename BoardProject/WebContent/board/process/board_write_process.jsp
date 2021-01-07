@@ -12,9 +12,9 @@
 	
 	BoardDTO dto = new BoardDTO(title,writer, content);
 	
-	BoardService.getInstance().insertBoardDTO(dto);
-	 
+	dto = BoardService.getInstance().insertBoardDTO(dto);
 	//작성한 게시글 조회 페이지 board_view.jsp 게시글 번호
+	System.out.println(dto.getBno());
 	response.sendRedirect("../board_view.jsp?bno="+dto.getBno());
 %>
 

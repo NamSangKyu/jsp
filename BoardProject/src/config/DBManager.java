@@ -1,34 +1,33 @@
 package config;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 public class DBManager {
 	private static DBManager instance = new DBManager();
-	private Connection conn;
-
+	private DataSource source;
 	private DBManager() {
+		Context context;
 		try {
-			Class.forName(DBConfig.DB_DRIVER);
-			conn = DriverManager.getConnection(DBConfig.DB_URL, DBConfig.DB_USER, DBConfig.DB_PASS);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+			context = new InitialContext();
+			source = (DataSource) context.lookup("java:/comp/env/jdbc/myoracle");
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
-
+	public DataSource getSource() {
+		return source;
+	}
 	public static DBManager getInstance() {
 		if (instance == null)
 			instance = new DBManager();
 		return instance;
-	}
-
-	public Connection getConn() {
-		return conn;
 	}
 
 	public void close(PreparedStatement pstmt, ResultSet rs) {
