@@ -27,10 +27,9 @@
 				},
 				error:function( request, status, error){
 					console.log("error_code = " + request.status);
-					console.log("message = " + request.responseText);
+					console.log("message = " + request.responseText.trim());
 					console.log("error = " + error);
 					console.log("status= " + status);
-					location.href = "원하는 페이지 ";
 				}
 			});
 		});

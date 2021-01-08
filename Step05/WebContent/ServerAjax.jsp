@@ -1,13 +1,9 @@
-<%@page import="org.json.JSONArray"%>
-<%@page import="org.json.JSONObject"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="config.DBManager"%>
-<%@page import="java.sql.PreparedStatement"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page errorPage="error.jsp" %> 
 <%
 	throw new Exception("text");
-	/* String search = "%" + request.getParameter("name") + "%";
+	/*String search = "%" + request.getParameter("name") + "%";
 	String sql = "select id, name, pass, age, grade_name from member, grade_list "+
 			" where grade_no = grade and name like ?";
 	
@@ -32,14 +28,3 @@
 	System.out.println(jsonObject.toString());
 	DBManager.getInstance().close(pstmt, rs); */	
 %>
-
-
-
-
-
-
-
-
-
-
-
