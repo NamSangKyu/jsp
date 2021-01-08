@@ -10,7 +10,6 @@
 <title>Insert title here</title>
 <style>
 	#container{
-		height: 600px;
 		/* background-color: lime; */
 		width:1200px;
 		margin:0 auto;
@@ -37,19 +36,19 @@
 		margin:20px auto;
 		border-collapse: collapse;
 	}
-	th, td{
+	.board th, .board td{
 		padding: 10px;
 		text-align: center;
 	}
-	th{
+	.board th{
 		border-top : 2px solid black;
 		border-bottom : 2px solid black;
 	}
-	td{
+	.board td{
 		border-top : 1px solid black;
 		border-bottom : 1px solid black;
 	}
-	tr:last-child > td {
+	.board tr:last-child > td {
 		border-bottom : 2px solid black;
 	}
 	.title{
@@ -60,6 +59,25 @@
 	}
 	.date{
 		width:200px;
+	}
+	.page_bar{
+		position:relative;
+		text-align: center;
+	}
+	.page_bar a:link,.page_bar a:visited {
+		color:black;
+		text-decoration: none;
+		font-size : 18px;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	.page_bar a:hover{
+		font-weight: bold;
+		color:red;
+	}
+	.btn_writer{
+		position:absolute;
+		right:0px;
 	}
 </style>
 <jsp:include page="/template/header.jsp" flush="false"></jsp:include>
@@ -89,6 +107,20 @@
 					<%
 				}
 			%>
+			<tr>
+				<td colspan="7">
+					<div class="page_bar">
+						<a href="#">◀</a>
+						<a href="#">6</a>
+						<a href="#">7</a>
+						<a href="#">8</a>
+						<a href="#">9</a>
+						<a href="#">10</a>
+						<a href="#">▶</a>
+						<a href="<%=request.getContextPath()%>/board/board_write_view.jsp" class="btn_writer">글쓰기</a>
+					</div>
+				</td>
+			</tr>
 		</table>
 	</div>
 <jsp:include page="/template/footer.jsp" flush="false"></jsp:include>
