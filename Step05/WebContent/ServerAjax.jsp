@@ -6,7 +6,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String search = "%" + request.getParameter("name") + "%";
+	throw new Exception("text");
+	/* String search = "%" + request.getParameter("name") + "%";
 	String sql = "select id, name, pass, age, grade_name from member, grade_list "+
 			" where grade_no = grade and name like ?";
 	
@@ -29,7 +30,7 @@
 	jsonObject.put("result",jsonArray);
 	out.write(jsonObject.toString());
 	System.out.println(jsonObject.toString());
-	DBManager.getInstance().close(pstmt, rs);	
+	DBManager.getInstance().close(pstmt, rs); */	
 %>
 
 
