@@ -126,6 +126,18 @@
 
 	</div>
 	<jsp:include page="/template/footer.jsp" flush="false"></jsp:include>
+	<script>
+		console.log("Context : <%= request.getContextPath() %>");
+		console.log("URI : <%= request.getRequestURI() %>");
+		console.log("URL : <%= request.getRequestURL() %>");
+		console.log("Path : <%= request.getServletPath() %>");
+		console.log("QueryString : <%= request.getQueryString() %>");
+		console.log("Path : " + location.href);
+		
+	</script>
+
+
+
 
 </body>
 </html>

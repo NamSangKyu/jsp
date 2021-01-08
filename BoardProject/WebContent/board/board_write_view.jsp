@@ -65,9 +65,14 @@
 <body>
 <%
 		if(session.getAttribute("login") == null || (boolean) session.getAttribute("login")==false){
+			String queryString = "";
+			queryString = request.getQueryString() != null ? "?"+ request.getQueryString() : "";
+			session.setAttribute("result_url", request.getRequestURI() + queryString );
 			%>
 				<script>
-					location.href="<%=request.getContextPath()%>/index.jsp";
+					console.log("<%=session.getAttribute("result_url")%>");
+					alert("로그인을 하셔야 이용할수 있습니다.");
+					location.href="<%=request.getContextPath()%>/member/login.jsp";
 				</script>
 			<%
 		}
