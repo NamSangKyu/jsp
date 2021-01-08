@@ -2,6 +2,11 @@
 <%@page import="dto.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	if(session.getAttribute("login") == null){
+		session.setAttribute("result_url", request.getRequestURI()+"?"+request.getQueryString());
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +14,6 @@
 <title>글쓰기 페이지</title>
 <style type="text/css">
 	#container{
-		height: 600px;
 		/* background-color: lime; */
 		width:1200px;
 		margin:0 auto;
@@ -68,10 +72,69 @@
 		color:black;
 		text-decoration: none;
 	}
+	.comment_form{
+		width:100%;
+		border :1px solid black;
+	}
+	.writer{
+		width: 100%;
+		display: inline-block;
+		font-weight: bold;
+		padding-left: 30px;
+	}
+	.comment_form textarea{
+		width:100%;
+		height: 80px;
+		margin-top:10px;
+		font-size: 18px;
+		padding-left: 30px;
+		padding-right: 30px;
+		outline:none;
+		border: none;
+		resize: none;
+		box-sizing: border-box;
+		
+	}
+	.comment_form button{
+		width: 100px;
+		height: 40px;
+		font-weight: bold;
+		background-color: #ffff00;	
+		outline:none;
+		border: none;
+	}
+	.comment_form button:hover{
+		background-color: #dfdf25;	
+	}
+	.length{
+		text-align: right;
+		padding:10px 30px;
+	}
+	hr{
+	margin:0;
+	}
+	.comment_form p {
+		margin:0;
+	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 	$(function(){
+		$(".comment_form textarea").keyup(function() {
+			$(this).next().text($(this).val().length+"/500");
+		});
+		$(".comment_form button").click(function(){
+			var data = $("#comment").serialize();
+			$.ajax({
+				url : "process/comment_insert_process.jsp",
+				data : data,
+				method:"get",
+				success:function(d){
+					alert("댓글 등록 성공 : " + d);
+					location.reload();	
+				}
+			});
+		});
 		$(".btn_like").click(function(){
 			// 0 - like, 1 - hate
 			// bno;
@@ -86,7 +149,12 @@
 					console.log(result, result.length);
 					$(obj).children("span").html(result);
 					
-				}				
+				},
+				error : function(request, status, error) {
+					alert(request.responseText.trim());
+					location.href="<%=request.getContextPath()%>/member/login.jsp";
+					
+				}
 			});
 		});
 	});
@@ -135,8 +203,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th></th>
-					<td class="text_center">
+					<td colspan="2" class="text_center">
 						<a href="#" class="btn_like">
 							<img src="<%=request.getContextPath()%>/img/like.png">
 							<!-- 좋아요 개수 -->
@@ -149,6 +216,26 @@
 						</a>
 					</td>
 				</tr>
+				<%
+					if(session.getAttribute("login")!=null){
+						%>
+				<tr>
+					<td colspan="2">
+						<div class="comment_form">
+							<form id="comment">
+							<input type="hidden" name="bno" value="<%=dto.getBno() %>">
+							<input type="hidden" name="writer" value="<%=session.getAttribute("id") %>">
+							<span class="writer"><%=session.getAttribute("id") %></span>
+							<textarea name="content" maxlength="500"></textarea>
+							<p class="length">0/500</p><hr>
+							<p style="text-align: right;"><button type="button">등록</button></p>
+							</form>							
+						</div>
+					</td>
+				</tr>
+						<%
+					}
+				%>
 				<tr>
 					<th><a href="javascript:history.back();" class="btn">목록보기</a></th>
 					<td style="text-align: right;">

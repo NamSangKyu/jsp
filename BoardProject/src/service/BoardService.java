@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dao.BoardDAO;
 import dto.BoardDTO;
+import dto.CommentDTO;
 
 public class BoardService {
 	private static BoardService instance = new BoardService();
@@ -31,6 +32,10 @@ public class BoardService {
 	}
 	public ArrayList<BoardDTO> selectBoardList(){
 		return dao.selectBoardList();		
+	}
+	
+	public int insertBoardComment(CommentDTO dto) {
+		return dao.insertBoardComment(dto);
 	}
 }	
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import config.DBManager;
 import dto.BoardDTO;
+import dto.CommentDTO;
 
 public class BoardDAO {
 	private static BoardDAO instance = new BoardDAO();
@@ -173,4 +174,32 @@ public class BoardDAO {
 		return list;
 	}
 
+	public int insertBoardComment(CommentDTO dto) {
+		String sql = "insert into board_comment(cno, bno, writer, content) values(cno_seq.nextval,?,?,?)";
+		PreparedStatement pstmt = null;
+		int count = 0;
+		
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, dto.getBno());
+			pstmt.setString(2, dto.getWriter());
+			pstmt.setString(3, dto.getContent());
+			count = pstmt.executeUpdate();
+			manager.getConn().commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, null);
+		}
+		return count;
+	}
+
 }
+
+
+
+
+
+
+
+

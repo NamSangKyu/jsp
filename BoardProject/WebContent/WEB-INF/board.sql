@@ -15,7 +15,7 @@ alter table board add constraint fk_writer foreign key(writer) references member
 create table board_comment(
     cno number primary key,
     bno number,
-    content varchar2(150 byte),
+    content varchar2(1500 byte),
     cdate date default sysdate,
     writer varchar2(25 byte),
     blike number default 0,
