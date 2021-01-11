@@ -9,7 +9,16 @@ public class BoardDTO {
 	private String content;
 	private int bLike;
 	private int bHate;
+	private int cCount;
 	
+	public int getcCount() {
+		return cCount;
+	}
+
+	public void setcCount(int cCount) {
+		this.cCount = cCount;
+	}
+
 	public BoardDTO(String title, String writer, String content) {
 		super();
 		this.title = title;
@@ -29,6 +38,21 @@ public class BoardDTO {
 		this.bLike = bLike;
 		this.bHate = bHate;
 	}
+	
+	public BoardDTO(int bno, String title, String bDate, int bCount, String writer, String content, int bLike,
+			int bHate, int cCount) {
+		super();
+		this.bno = bno;
+		this.title = title;
+		this.bDate = bDate;
+		this.bCount = bCount;
+		this.writer = writer;
+		this.content = content;
+		this.bLike = bLike;
+		this.bHate = bHate;
+		this.cCount = cCount;
+	}
+
 	public String getWriter() {
 		return writer;
 	}

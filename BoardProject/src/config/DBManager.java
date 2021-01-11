@@ -14,7 +14,9 @@ public class DBManager {
 	private static DBManager instance = new DBManager();
 	private DataSource source;
 	private Connection conn;
+
 	private DBManager() {
+
 		Context context;
 		try {
 			context = new InitialContext();
@@ -25,13 +27,17 @@ public class DBManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
+
 	public Connection getConn() {
 		return conn;
 	}
+
 	public DataSource getSource() {
 		return source;
 	}
+
 	public static DBManager getInstance() {
 		if (instance == null)
 			instance = new DBManager();
@@ -42,7 +48,7 @@ public class DBManager {
 		try {
 			if (pstmt != null)
 				pstmt.close();
-			if(rs != null)
+			if (rs != null)
 				rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -50,10 +56,3 @@ public class DBManager {
 	}
 
 }
-
-
-
-
-
-
-

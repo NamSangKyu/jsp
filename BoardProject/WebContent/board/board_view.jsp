@@ -255,24 +255,26 @@
 					</td>
 				</tr>
 				<tr>
+				
 						<td colspan="2">
 					<%
-						ArrayList<CommentDTO> list = BoardService.getInstance().selectCommentDTO(bno);
+						ArrayList<CommentDTO> clist = BoardService.getInstance().selectCommentDTO(bno);
 						//작성자, 내용, 작성일, 좋아요, 싫어요
-						for(int i=0;i<list.size();i++){
-						%>
-						<p><%=list.get(i).getWriter() %>
-						<%=list.get(i).getDate() %>
-						<%=list.get(i).getBlike() %>
-						<%=list.get(i).getBhate()%>
+						for(int i=0;i<clist.size();i++){
+					%>
+						<p><%=clist.get(i).getWriter() %>
+						<%=clist.get(i).getDate() %>
+						<%=clist.get(i).getBlike() %>
+						<%=clist.get(i).getBhate()%>
 						</p>
 						<p>
-							<%=list.get(i).getContent() %>
+							<%=clist.get(i).getContent() %>
 						</p>
 					<%			
 						}
 					%>
-						</td>			
+						</td>
+							
 				</tr>
 			</table>
 	</div>

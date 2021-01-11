@@ -35,11 +35,14 @@ select sysdate from dual;
 alter session set time_zone = 'Asia/Seoul';
 
 
+select * from board_comment;
 
-
-
-
-
+--게시글 목록
+select b.*, nvl(c.comment_count,0) 
+from board b, (select bno, count(*) as comment_count from board_comment group by bno) c
+where b.bno = c.bno(+);
+--게시글별 댓글 개수
+select bno, count(*) from board_comment group by bno;
 
 
 

@@ -98,7 +98,8 @@
 					%>
 					<tr>
 						<td><%=list.get(i).getBno() %></td>
-						<td><%=list.get(i).getTitle() %></td>
+						<td><%=list.get(i).getTitle() %>
+						 <%=list.get(i).getcCount() == 0 ? "" : "["+list.get(i).getcCount()+"]"  %></td>
 						<td><%=list.get(i).getWriter() %></td>
 						<td><%=list.get(i).getbDate() %></td>
 						<td><%=list.get(i).getbCount() %></td>

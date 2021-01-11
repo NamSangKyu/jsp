@@ -154,7 +154,10 @@ public class BoardDAO {
 	}
 
 	public ArrayList<BoardDTO> selectBoardList() {
-		String sql = "select * from board";
+		String sql = "select b.*, nvl(c.comment_count,0) "
+				+ "from board b, "
+				+ "(select bno, count(*) as comment_count from board_comment group by bno) c "
+				+ "where b.bno = c.bno(+)";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
@@ -162,8 +165,9 @@ public class BoardDAO {
 			pstmt = manager.getConn().prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
+				//bno,title, bDate,bCount,writer,content, bLike,bHate,cCount
 				list.add(new BoardDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
-						rs.getString(6), rs.getInt(7), rs.getInt(8)));
+						rs.getString(6), rs.getInt(7), rs.getInt(8),rs.getInt(9)));
 			}
 
 		} catch (SQLException e) {
@@ -197,10 +201,12 @@ public class BoardDAO {
 	public ArrayList<CommentDTO> selectCommentDTO(int bno) {
 		String sql = "select * from board_comment where bno = ? order by cno desc";
 		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
-			PreparedStatement pstmt = manager.getConn().prepareStatement(sql);
+			pstmt = manager.getConn().prepareStatement(sql);
 			pstmt.setInt(1, bno);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				list.add(new CommentDTO(rs.getInt(1),rs.getInt(2), 
 						rs.getString(3),rs.getString(4),rs.getString(5),
@@ -209,8 +215,29 @@ public class BoardDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, rs);
 		}
 		return list;
+	}
+	public int commentCount(int bno) {
+		int result = 0;
+		String sql = "select count(*) from board_comment where bno = ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				result = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.getInstance().close(pstmt, rs);
+		}
+		return result;
 	}
 
 }
