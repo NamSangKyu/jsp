@@ -194,7 +194,29 @@ public class BoardDAO {
 		return count;
 	}
 
+	public ArrayList<CommentDTO> selectCommentDTO(int bno) {
+		String sql = "select * from board_comment where bno = ? order by cno desc";
+		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
+		try {
+			PreparedStatement pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(new CommentDTO(rs.getInt(1),rs.getInt(2), 
+						rs.getString(3),rs.getString(4),rs.getString(5),
+						rs.getInt(6), rs.getInt(7)));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }
+
+
+
 
 
 

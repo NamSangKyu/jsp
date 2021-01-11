@@ -1,3 +1,5 @@
+<%@page import="dto.CommentDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="service.BoardService"%>
 <%@page import="dto.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -251,6 +253,26 @@
 						<a href="#" class="btn">다음글</a>
 						
 					</td>
+				</tr>
+				<tr>
+						<td colspan="2">
+					<%
+						ArrayList<CommentDTO> list = BoardService.getInstance().selectCommentDTO(bno);
+						//작성자, 내용, 작성일, 좋아요, 싫어요
+						for(int i=0;i<list.size();i++){
+						%>
+						<p><%=list.get(i).getWriter() %>
+						<%=list.get(i).getDate() %>
+						<%=list.get(i).getBlike() %>
+						<%=list.get(i).getBhate()%>
+						</p>
+						<p>
+							<%=list.get(i).getContent() %>
+						</p>
+					<%			
+						}
+					%>
+						</td>			
 				</tr>
 			</table>
 	</div>

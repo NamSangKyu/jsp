@@ -37,6 +37,10 @@ public class BoardService {
 	public int insertBoardComment(CommentDTO dto) {
 		return dao.insertBoardComment(dto);
 	}
+	
+	public ArrayList<CommentDTO> selectCommentDTO(int bno){
+		return dao.selectCommentDTO(bno);
+	}
 }	
 
 
