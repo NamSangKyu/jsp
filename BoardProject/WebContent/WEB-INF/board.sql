@@ -44,6 +44,56 @@ where b.bno = c.bno(+);
 --게시글별 댓글 개수
 select bno, count(*) from board_comment group by bno;
 
+delete from board where writer is null or title is null;
+
+--페이징 : 많은 데이터들 중 순서대로 원하는 양 만큼 원하는 일부분을 조회
+select b.*, nvl(c.comment_count,0) 
+from board b, (select bno, count(*) as comment_count from board_comment group by bno) c
+where b.bno = c.bno(+);
+
+-- Step1 정렬 : 정렬기준 날짜 또는 글번호 
+select b.*, nvl(c.comment_count,0) 
+from board b, (select bno, count(*) as comment_count from board_comment group by bno) c
+where b.bno = c.bno(+) order by b.bno desc;
+
+-- Step2 처음부터 게시글 7개만 조회
+select rownum,BNO,TITLE,BDATE,BCOUNT,WRITER,CONTENT,BLIKE,BHATE  from 
+(select b.*, nvl(c.comment_count,0) as comment_count 
+from board b, (select bno, count(*) as comment_count 
+from board_comment group by bno) c
+where b.bno = c.bno(+) order by b.bno desc) where rownum <= 7;
+
+--Step3 1페이지 : 1~7, 2페이지 8 ~ 14, 3페이지 15~21
+-- 위에 결과를 토대로 2페이지에 해당하는 글 목록을 조회
+-- 페이지번호 n, 페이지당 보여줄 글목록 개수 x
+-- 시작 글 번호 : (n-1) * x + 1
+-- 마지막 글 번호 : n * x 
+select * from(select rownum as rn,bno,title,bdate,bcount,writer,content,blike,bhate
+from (select b.*, nvl(c.comment_count,0) as comment_count
+from board b, (select bno, count(*) as comment_count from board_comment group by bno) c
+where b.bno = c.bno(+) order by b.bno desc)) where rn between 8 and 14;
+
+-- 페이지 번호를 구해서 where 간단하게
+select * from (select ceil(rownum / 7) as pagenum,BNO,
+TITLE,BDATE,BCOUNT,WRITER,CONTENT,BLIKE,BHATE  
+from (select b.*, nvl(c.comment_count,0) as comment_count from board b,
+(select bno, count(*) as comment_count from board_comment group by bno) c
+where b.bno = c.bno(+) order by b.bno desc)) where pagenum = 2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -30,8 +30,8 @@ public class BoardService {
 		dao.addCount(bno);
 		return dao.selectBoardDTO(bno);
 	}
-	public ArrayList<BoardDTO> selectBoardList(){
-		return dao.selectBoardList();		
+	public ArrayList<BoardDTO> selectBoardList(int pageNo){
+		return dao.selectBoardList(pageNo);		
 	}
 	
 	public int insertBoardComment(CommentDTO dto) {

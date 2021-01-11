@@ -153,21 +153,24 @@ public class BoardDAO {
 		return result;
 	}
 
-	public ArrayList<BoardDTO> selectBoardList() {
-		String sql = "select b.*, nvl(c.comment_count,0) "
-				+ "from board b, "
-				+ "(select bno, count(*) as comment_count from board_comment group by bno) c "
-				+ "where b.bno = c.bno(+)";
+	public ArrayList<BoardDTO> selectBoardList(int pageNo) {
+		String sql = "select * from "
+				+ "(select ceil(rownum / 7) as pagenum,bno,title,bdate,bcount,"
+				+ "writer,content,blike,bhate,comment_count from "
+				+ "(select b.*, nvl(c.comment_count,0) as comment_count from "
+				+ "board b,(select bno, count(*) as comment_count from "
+				+ "board_comment group by bno) c where b.bno = c.bno(+) order by b.bno desc)) "
+				+ "where pagenum = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {
 			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, pageNo);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				//bno,title, bDate,bCount,writer,content, bLike,bHate,cCount
-				list.add(new BoardDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
-						rs.getString(6), rs.getInt(7), rs.getInt(8),rs.getInt(9)));
+				list.add(new BoardDTO(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6),
+						rs.getString(7), rs.getInt(8), rs.getInt(9),rs.getInt(10)));
 			}
 
 		} catch (SQLException e) {
@@ -239,8 +242,27 @@ public class BoardDAO {
 		}
 		return result;
 	}
-
+	//전체 게시글 개수
+	public int getCount() {
+		String sql = "select count(*) from board";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			rs  = pstmt.executeQuery();
+			if(rs.next())
+				result = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			manager.close(pstmt, rs);
+		}
+		return result;		
+	}
 }
+
+
 
 
 

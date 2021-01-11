@@ -1,3 +1,5 @@
+<%@page import="vo.PaggingVO"%>
+<%@page import="dao.BoardDAO"%>
 <%@page import="service.BoardService"%>
 <%@page import="dto.BoardDTO"%>
 <%@page import="java.util.ArrayList"%>
@@ -81,7 +83,8 @@
 	<div id="container">
 		<!-- 게시판 글목록 -->
 		<%
-			ArrayList<BoardDTO> list = BoardService.getInstance().selectBoardList();
+			int pageNo = 1;
+			ArrayList<BoardDTO> list = BoardService.getInstance().selectBoardList(pageNo);
 		%>
 		<table class="board">
 			<tr>
@@ -108,17 +111,23 @@
 					</tr>					
 					<%
 				}
+			//페이징 정보를 읽어옴
+			int count = BoardDAO.getInstance().getCount();
+			PaggingVO vo = new PaggingVO(count, pageNo);
 			%>
 			<tr>
 				<td colspan="7">
 					<div class="page_bar">
-						<a href="#">◀</a>
-						<a href="#">6</a>
-						<a href="#">7</a>
-						<a href="#">8</a>
-						<a href="#">9</a>
-						<a href="#">10</a>
-						<a href="#">▶</a>
+					<!-- 페이징 처리 시작 -->
+						<a href="#">◀</a><!-- if -->
+						<!-- loop start -->
+						<a href="index.jsp?pageNo=6">6</a>
+						<a href="index.jsp?pageNo=7">7</a>
+						<a href="index.jsp?pageNo=8">8</a>
+						<a href="index.jsp?pageNo=9">9</a>
+						<!-- loop end -->
+						<a href="#">▶</a><!-- if -->
+					<!-- 페이징 처리 종료 -->
 						<a href="<%=request.getContextPath()%>/board/board_write_view.jsp" class="btn_writer">글쓰기</a>
 					</div>
 				</td>
