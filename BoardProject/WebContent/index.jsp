@@ -84,6 +84,8 @@
 		<!-- 게시판 글목록 -->
 		<%
 			int pageNo = 1;
+			if(request.getParameter("pageNo") != null)
+				pageNo = Integer.parseInt(request.getParameter("pageNo"));
 			ArrayList<BoardDTO> list = BoardService.getInstance().selectBoardList(pageNo);
 		%>
 		<table class="board">
@@ -113,20 +115,33 @@
 				}
 			//페이징 정보를 읽어옴
 			int count = BoardDAO.getInstance().getCount();
-			PaggingVO vo = new PaggingVO(count, pageNo);
+			PaggingVO pageVO = new PaggingVO(count, pageNo);
 			%>
 			<tr>
 				<td colspan="7">
 					<div class="page_bar">
 					<!-- 페이징 처리 시작 -->
-						<a href="#">◀</a><!-- if -->
+					<%
+						if(pageVO.isPreviousPageGroup()){
+					%>
+						<!-- 현재 페이지 그룹의 첫번째 페이지 - 1 == 이전페이지그룹의 마지막 페이지 -->
+						<a href="index.jsp?pageNo=<%=pageVO.getStartPageOfPageGroup()-1%>">◀</a>
+					<%
+						}
+					%>
 						<!-- loop start -->
 						<a href="index.jsp?pageNo=6">6</a>
 						<a href="index.jsp?pageNo=7">7</a>
 						<a href="index.jsp?pageNo=8">8</a>
 						<a href="index.jsp?pageNo=9">9</a>
 						<!-- loop end -->
-						<a href="#">▶</a><!-- if -->
+						<%
+						if(pageVO.isNextPageGroup()){
+						%>
+						<a href="index.jsp?pageNo=<%=pageVO.getEndPageOfPageGroup()+1%>">▶</a>
+						<%
+						}
+						%>
 					<!-- 페이징 처리 종료 -->
 						<a href="<%=request.getContextPath()%>/board/board_write_view.jsp" class="btn_writer">글쓰기</a>
 					</div>

@@ -79,6 +79,7 @@ TITLE,BDATE,BCOUNT,WRITER,CONTENT,BLIKE,BHATE
 from (select b.*, nvl(c.comment_count,0) as comment_count from board b,
 (select bno, count(*) as comment_count from board_comment group by bno) c
 where b.bno = c.bno(+) order by b.bno desc)) where pagenum = 2;
+select count(*) from board;
 
 
 
