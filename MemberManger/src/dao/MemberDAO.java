@@ -87,7 +87,7 @@ public class MemberDAO {
 			pstmt.setString(2, pass);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				vo = new MemberVO(rs.getString(1), null, rs.getString(3), rs.getInt(4), rs.getString(5));
+				vo = new MemberVO(rs.getString(1), null, rs.getString(2), rs.getInt(4), rs.getString(5));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

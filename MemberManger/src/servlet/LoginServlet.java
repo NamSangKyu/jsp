@@ -18,7 +18,21 @@ import vo.MemberVO;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
+    @Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+		System.out.println("Destory LoginServlet");
+	}
+
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+		System.out.println("init LoginServlet");
+	}
+
+	/**
      * @see HttpServlet#HttpServlet()
      */
     public LoginServlet() {
@@ -39,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("login", true);
 			session.setAttribute("id", vo.getId());
 			session.setAttribute("name", vo.getName());
-			session.setAttribute("grade", vo.getGrade());
+			session.setAttribute("grade", vo.getGrade().toLowerCase());
 			response.sendRedirect("main.jsp");
 		}else {
 			session.setAttribute("login", false);

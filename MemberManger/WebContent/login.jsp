@@ -39,7 +39,7 @@ p{
 			<%
 		}else{
 	%>
-		<form method="post" action="LoginServlet">
+		<form method="post" action="login.do">
 			<label for="id">아이디 : </label><input type="text" name="id" id="id"><br>
 			<label for="pass">암호 : </label><input type="password" name="pass" id="pass"><br> 
 			<p>

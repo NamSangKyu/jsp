@@ -16,7 +16,8 @@
 	<!-- header.jsp를 현재 문서에 포함 -->
 	<jsp:include page="template/header.jsp" flush="false"></jsp:include>
 	<div id="container">
-		메인페이지
+		메인페이지 ${sessionScope.grade == "master" }<br>
+		${sessionScope.grade += ".png" }
 	</div>
 	<jsp:include page="template/footer.jsp" flush="false"></jsp:include>
 	
