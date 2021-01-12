@@ -81,12 +81,15 @@
 	<!-- header.jsp를 현재 문서에 포함 -->
 	<jsp:include page="/template/header.jsp" flush="false"></jsp:include>
 	<div id="container">
-		<!-- 게시판 글목록 -->
+		<!-- 게시판 글목록 --> 
 		<%
+			String mode = request.getParameter("mode");
+			if(mode == null)
+				mode = "bno";
 			int pageNo = 1;//맨 처음에 접속을 했을때는 파라미터로 페이지 정보가 없음 그래서 첫번째 페이지로 고정
 			if(request.getParameter("pageNo") != null)//페이지 번호를 눌러서 접근한 경우
 				pageNo = Integer.parseInt(request.getParameter("pageNo"));
-			ArrayList<BoardDTO> list = BoardService.getInstance().selectBoardList(pageNo);
+			ArrayList<BoardDTO> list = BoardService.getInstance().selectBoardList(pageNo,mode);
 		%>
 		<table class="board">
 			<tr>
@@ -95,8 +98,8 @@
 				<th class="writer">작성자</th>
 				<th class="date">작성일</th>
 				<th>조회수</th>
-				<th>좋아요</th>
-				<th>싫어요</th>
+				<th><a href="index.jsp?mode=blike">좋아요</a></th><!-- 좋아요 클릭하면 좋아요를 많이 받은 순서대로 출력 -->
+				<th><a href="index.jsp?mode=bhate">싫어요</a></th>
 			</tr>
 			<%
 				for(int i=0;i<list.size();i++){
@@ -125,7 +128,7 @@
 						if(pageVO.isPreviousPageGroup()){
 					%>
 						<!-- 현재 페이지 그룹의 첫번째 페이지 - 1 == 이전페이지그룹의 마지막 페이지 -->
-						<a href="index.jsp?pageNo=<%=pageVO.getStartPageOfPageGroup()-1%>">◀</a>
+						<a href="index.jsp?pageNo=<%=pageVO.getStartPageOfPageGroup()-1%>&mode=<%=mode%>">◀</a>
 					<%
 						}
 						//loop start 시작페이지번호, 마지막 페이지 번호를 이용 반복문
@@ -138,13 +141,13 @@
 							하이퍼링크를 제거, 글꼴 스타일을 바꿈 -->
 							<a style="font-weight: bold;color:red;"><%=i%></a>
 						<%}else{ %>	
-						<a href="index.jsp?pageNo=<%=i%>"><%=i%></a>
+						<a href="index.jsp?pageNo=<%=i%>&mode=<%=mode%>"><%=i%></a>
 						<%
 							}
 						}
 						if(pageVO.isNextPageGroup()){
 						%>
-						<a href="index.jsp?pageNo=<%=pageVO.getEndPageOfPageGroup()+1%>">▶</a>
+						<a href="index.jsp?pageNo=<%=pageVO.getEndPageOfPageGroup()+1%>&mode=<%=mode%>">▶</a>
 						<%
 						}
 						%>
