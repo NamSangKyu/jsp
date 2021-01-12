@@ -83,8 +83,8 @@
 	<div id="container">
 		<!-- 게시판 글목록 -->
 		<%
-			int pageNo = 1;
-			if(request.getParameter("pageNo") != null)
+			int pageNo = 1;//맨 처음에 접속을 했을때는 파라미터로 페이지 정보가 없음 그래서 첫번째 페이지로 고정
+			if(request.getParameter("pageNo") != null)//페이지 번호를 눌러서 접근한 경우
 				pageNo = Integer.parseInt(request.getParameter("pageNo"));
 			ArrayList<BoardDTO> list = BoardService.getInstance().selectBoardList(pageNo);
 		%>
@@ -128,14 +128,20 @@
 						<a href="index.jsp?pageNo=<%=pageVO.getStartPageOfPageGroup()-1%>">◀</a>
 					<%
 						}
+						//loop start 시작페이지번호, 마지막 페이지 번호를 이용 반복문
+						int start = pageVO.getStartPageOfPageGroup();
+						int end = pageVO.getEndPageOfPageGroup();
+						for(int i=start;i<=end;i++){
+							if(i==pageNo){
 					%>
-						<!-- loop start -->
-						<a href="index.jsp?pageNo=6">6</a>
-						<a href="index.jsp?pageNo=7">7</a>
-						<a href="index.jsp?pageNo=8">8</a>
-						<a href="index.jsp?pageNo=9">9</a>
-						<!-- loop end -->
+						<!-- 출력하는 페이지 번호가 현재 페이지 번호랑 동일하면 
+							하이퍼링크를 제거, 글꼴 스타일을 바꿈 -->
+							<a style="font-weight: bold;color:red;"><%=i%></a>
+						<%}else{ %>	
+						<a href="index.jsp?pageNo=<%=i%>"><%=i%></a>
 						<%
+							}
+						}
 						if(pageVO.isNextPageGroup()){
 						%>
 						<a href="index.jsp?pageNo=<%=pageVO.getEndPageOfPageGroup()+1%>">▶</a>
