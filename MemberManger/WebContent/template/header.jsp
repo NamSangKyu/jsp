@@ -42,7 +42,7 @@
 <nav id="menu_bar">
 	<ul>
 		<li><a href="main.jsp">HOME</a></li>
-		<li><a href="LogoutServlet">로그아웃</a></li>
+		<li><a href="logout.do">로그아웃</a></li>
 		<%
 			if(session.getAttribute("grade").equals("master"))
 			{

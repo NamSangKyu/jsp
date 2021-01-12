@@ -18,6 +18,9 @@ public class HandlerMapping {
 		case "login.do":
 			controller = new LoginController();
 			break;
+		case "logout.do":
+			controller = new LogoutController();
+			break;
 		}
 		return controller;
 	}
