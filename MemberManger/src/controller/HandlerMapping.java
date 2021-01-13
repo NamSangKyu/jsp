@@ -33,6 +33,9 @@ public class HandlerMapping {
 		case "sendQnA.do":
 			controller = new InsertQnAController();
 			break;
+		case "qnaView.do":
+			controller = new QnaViewController();
+			break;
 		}
 		return controller;
 	}
