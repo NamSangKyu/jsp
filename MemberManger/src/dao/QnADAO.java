@@ -1,9 +1,10 @@
 package dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import config.DBConfig;
 import config.DBManager;
 import dto.QnaDTO;
 
@@ -36,9 +37,28 @@ public class QnADAO {
 			e.printStackTrace();
 		}
 		
-		
-		
 		return result;
+	}
+	//개인 문의 목록을 조회
+	public ArrayList<QnaDTO> selectQnaList(String id, int pageNo){
+		String sql = "select * from (select ceil(rownum / 5) as page, qno, title, content, wdate, writer, status, response from (select * from qna where writer = ? order by qno desc)) where page = ?";
+		ArrayList<QnaDTO> list = new ArrayList<QnaDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, pageNo);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(new QnaDTO(rs.getInt(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	
