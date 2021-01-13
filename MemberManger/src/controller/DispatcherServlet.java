@@ -13,7 +13,7 @@ import model.ModelAndView;
  * Servlet implementation class DispatcherServlet
  */
 //모든 사용자의 요청을 받아오는 서블릿 클래스
-@WebServlet({"/","*.do"})
+@WebServlet("*.do")
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,6 +29,7 @@ public class DispatcherServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html;charset=utf-8");
 		String[] arr = request.getRequestURI().split("/");
 		System.out.println(arr[arr.length-1]);
 		Controller controller = HandlerMapping.getInstance().createController(arr[arr.length-1]);
@@ -36,7 +37,7 @@ public class DispatcherServlet extends HttpServlet {
 		if(controller != null)
 			view = controller.execute(request, response);
 		//결과 뷰로 이동
-		if(view == null) view = new ModelAndView("main.jsp", true);
+		if(view == null) return;
 		if(view.isSendRedirect()) {
 			response.sendRedirect(view.getPage());
 		}else {
