@@ -24,7 +24,7 @@ public class QnADAO {
 	public int insertQna(QnaDTO dto) {
 		int result = 0;
 		
-		String sql = "insert into qna(qno, title, contetnt, wirter) "
+		String sql = "insert into qna(qno, title, content, writer) "
 				+ "values(qno_seq.nextval, ?, ? ,?)";
 		try {
 			PreparedStatement pstmt = DBManager.getInstance().getConn().prepareStatement(sql);

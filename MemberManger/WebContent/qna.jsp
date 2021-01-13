@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,11 +69,30 @@
 		<hr>
 		<div id="qna_list">
 			<!-- 질문 답변 목록 -->
+			<c:forEach var="dto" items="${requestScope.list }">
+				${dto.title } | ${dto.writer } | ${dto.date } | 
+				<c:choose>
+					<c:when test="${dto.status==0}">않읽음</c:when>
+					<c:when test="${dto.status==1}">읽음	</c:when>
+					<c:otherwise>답변완료</c:otherwise>
+				</c:choose>
+				<br>
+				${dto.content }<br>
+			</c:forEach>
 		</div>
 	</div>
 	<jsp:include page="template/footer.jsp"></jsp:include>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
 
 
 

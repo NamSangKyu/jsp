@@ -15,7 +15,7 @@ public class InsertQnAController implements Controller {
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		String writer = request.getParameter("writer");
+		String writer = (String) request.getSession().getAttribute("id");
 		ModelAndView view = null;
 		int count = QnAService.getInstance().insertQnA(new QnaDTO(title, content, writer));
  
