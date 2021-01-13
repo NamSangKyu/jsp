@@ -30,6 +30,9 @@ public class HandlerMapping {
 		case "updateAction.do":
 			controller = new UpdateController();
 			break;
+		case "sendQnA.do":
+			controller = new InsertQnAController();
+			break;
 		}
 		return controller;
 	}
