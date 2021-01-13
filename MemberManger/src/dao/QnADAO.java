@@ -61,6 +61,26 @@ public class QnADAO {
 		return list;
 	}
 
+	public ArrayList<QnaDTO> selectQnaAdminList(int pageNo) {
+		String sql = "select * from (select ceil(rownum / 5) as page, qno, title, content, wdate, writer, status, response from (select * from qna order by status asc, qno desc)) where page = 1";
+		ArrayList<QnaDTO> list = new ArrayList<QnaDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
+			pstmt.setInt(1, pageNo);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(new QnaDTO(rs.getInt(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	
 }
 
