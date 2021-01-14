@@ -29,6 +29,10 @@ public class QnAService {
 			return dao.selectQnaAdminList(pageNo);
 		return dao.selectQnaList(id, pageNo);
 	}
+
+	public ArrayList<QnaDTO> selectNoAnswerList() {
+		return dao.selectNoAnswerList();
+	}
 	
 	
 }

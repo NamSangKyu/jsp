@@ -81,6 +81,26 @@ public class QnADAO {
 		return list;
 	}
 
+	public ArrayList<QnaDTO> selectNoAnswerList() {
+		String sql = "select * from qna where status in(0,1)";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<QnaDTO> list = new ArrayList<QnaDTO>();
+		try {
+			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(new QnaDTO(rs.getInt(1), rs.getString(2), rs.getString(3),
+						rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return list;
+	}
+
 	
 }
 
