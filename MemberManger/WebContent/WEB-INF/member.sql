@@ -15,7 +15,7 @@ select * from nls_database_parameters where parameter like '%CHARACTERSET%';
 select * from member;
 delete from member;
 insert into member values('A0001', '1234', '홍길동',33,1);
-UPDATE MEMBER SET GRADE = 1 WHERE ID = 'A0001';
+UPDATE MEMBER SET GRADE = 0 WHERE ID = 'admin';
 --회원 등급 나타내는 테이블 GRADE_LIST
 -- BRONZE - 1, SILVER - 2, GOLD - 3, VIP - 4, VVIP - 5 MASTER -> 0  
 create table grade_list(

@@ -62,7 +62,7 @@ public class QnADAO {
 	}
 
 	public ArrayList<QnaDTO> selectQnaAdminList(int pageNo) {
-		String sql = "select * from (select ceil(rownum / 5) as page, qno, title, content, wdate, writer, status, response from (select * from qna order by status asc, qno desc)) where page = 1";
+		String sql = "select * from (select ceil(rownum / 5) as page, qno, title, content, wdate, writer, status, response from (select * from qna order by status asc, qno desc)) where page = ?";
 		ArrayList<QnaDTO> list = new ArrayList<QnaDTO>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -101,7 +101,24 @@ public class QnADAO {
 		return list;
 	}
 
-	
+	public int selectCountQna() {
+		String sql = "select count(*) from qna";
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())
+				count = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 }
 
 
