@@ -32,8 +32,8 @@ public class StartBatch implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent arg0)  { 
     	System.out.println("MemberManger Start");
-    	js = new CronTriggerMaker("0/5 * * * * ?", SearchNoAnswerList.class);
-		js.createTrigger();
+//    	js = new CronTriggerMaker("0/5 * * * * ?", SearchNoAnswerList.class);
+//		js.createTrigger();
     }
 	
 }
