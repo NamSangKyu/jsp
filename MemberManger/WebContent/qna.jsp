@@ -68,8 +68,26 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+	var pageNo = 1;//전역변수
 	$(function(){
 		$("#qna_list").accordion();
+		$("#btn_more").click(function(){
+			pageNo++;
+			$.ajax({
+				url:"nextQnaList.do",
+				data : "pageNo="+pageNo,
+				method:"get",
+				success:function(result){
+					alert(result);
+					var json = JSON.parse(result);
+					if(json.nextPage == "0"){
+						$("#btn_more").off("click");
+						$("#btn_more").text("더 이상 불러올 내용이 없습니다.");
+					}
+					//반복문 이용해서 qna_list 부분에 append로 추가	
+				}
+			});
+		});
 	});
 </script>
 </head>
