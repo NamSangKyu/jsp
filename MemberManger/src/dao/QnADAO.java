@@ -119,6 +119,27 @@ public class QnADAO {
 		
 		return count;
 	}
+
+	public QnaDTO selectQna(int qno) {
+		String sql = "select qno, title, content, wdate, writer, status, "
+				+ "nvl(response,'답변 없음') from qna where qno = ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		QnaDTO dto = null;
+		try {
+			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
+			pstmt.setInt(1, qno);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto = new QnaDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
 }
 
 

@@ -46,6 +46,8 @@ create table qna(
 
 create sequence qno_seq start with 1;
 
+delete from qna where writer = 'admin' or writer is null;
+
 select * from qna where writer = 'A0001' order by qno desc;
 update qna set writer = 'A0001'
 select * from 

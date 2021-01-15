@@ -10,7 +10,7 @@ public class PaggingVO {
 	//전체 게시글 개수
 	private int count;
 	//한페이지당 출력할 게시글(글목록) 개수
-	private final int pageOfContentCount = 7;
+	private final int pageOfContentCount = 5;
 	//게시판 하단에 나타낼 페이지 번호 개수
 	private final int pageGroupOfCount = 4;
 	//현재 페이지 번호
@@ -105,6 +105,19 @@ public class PaggingVO {
 	public boolean isNextPageGroup() {
 		return getNowPageGroupNo() < getTotalPageGroup();
 	}
+
+	@Override
+	public String toString() {
+		return "PaggingVO [count=" + count + ", pageOfContentCount=" + pageOfContentCount + ", pageGroupOfCount="
+				+ pageGroupOfCount + ", currentPage=" + currentPage + ", getCurrentPage()=" + getCurrentPage()
+				+ ", getTotalPage()=" + getTotalPage() + ", getTotalPageGroup()=" + getTotalPageGroup()
+				+ ", getNowPageGroupNo()=" + getNowPageGroupNo() + ", getStartPageOfPageGroup()="
+				+ getStartPageOfPageGroup() + ", getEndPageOfPageGroup()=" + getEndPageOfPageGroup()
+				+ ", isPreviousPageGroup()=" + isPreviousPageGroup() + ", isNextPageGroup()=" + isNextPageGroup() + "]";
+	}
+	
+	
+	
 }
 
 

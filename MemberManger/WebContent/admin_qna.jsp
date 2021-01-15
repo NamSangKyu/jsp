@@ -35,8 +35,8 @@
 			</tr>
 		<c:forEach var="dto" items="${sessionScope.list }" varStatus="status">
 			<tr>
-				<td>${status.count }</td>
-				<td>${dto.title }</td>
+				<td>${dto.qno }</td>
+				<td><a href="adminQnaDetailView.do?qno=${dto.qno}">${dto.title }</td>
 				<td>${dto.writer }</td>
 				<td>${dto.date }</td>
 				<td>
@@ -48,6 +48,34 @@
 				</td>
 			</tr>			
 		</c:forEach>
+			<tr>
+				<td colspan="6">
+					<!--
+					${sessionScope.page.previousPageGroup},
+					${sessionScope.page.isPreviousPageGroup()},
+					${sessionScope.page.nextPageGroup},
+					${sessionScope.page.isNextPageGroup()}, -->
+					<c:set var="page" value="${sessionScope.page}" scope="page" />
+					<c:if test="${page.previousPageGroup }">
+						<a href="qnaAdminView.do?pageNo=${page.startPageOfPageGroup-1}">◀</a>
+					</c:if>
+					<!-- 페이지 번호 출력
+						var="반복문 내부에서 사용할 변수", items="배열, Collection(List,Set)" varStatus = 반복문 상태, 속성값.count -> 현재 반복 횟수
+						var, items, varStatus
+						 var="반복문 내부에서 사용할 변수", begin = "시작값", end ="종료값" ,step="증감값"
+						 var begin end step
+					 -->
+					
+					<c:forEach var="i" begin="${page.startPageOfPageGroup }" end="${page.endPageOfPageGroup }" step="1">
+						<a href="qnaAdminView.do?pageNo=${i }">${i}</a>					
+					</c:forEach>
+					<c:if test="${page.nextPageGroup }">
+						<a href="qnaAdminView.do?pageNo=${page.endPageOfPageGroup+1}">▶</a>
+					</c:if>
+					<br>
+					${page.startPageOfPageGroup },${page.endPageOfPageGroup },${page.totalPageGroup }
+				</td>
+			</tr>
 		</table>
 	</div>
 	<jsp:include page="template/footer.jsp"></jsp:include>

@@ -24,7 +24,7 @@ public class QnaAdminViewController implements Controller {
 		ArrayList<QnaDTO> list = QnAService.getInstance().selectQnaList(id, pageNo, grade);
 		int count = QnAService.getInstance().selectCount();
 		PaggingVO vo = new PaggingVO(count, pageNo);
-		
+		System.out.println(vo);
 		request.getSession().setAttribute("page", vo);
 		request.getSession().setAttribute("list", list);
 				
