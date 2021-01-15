@@ -140,6 +140,22 @@ public class QnADAO {
 		
 		return dto;
 	}
+
+	public int updateResponse(int qno, String answer) {
+		String sql = "update qna set response = response || ? where qno = ?";
+		PreparedStatement pstmt = null;
+		int count = 0;
+		try {
+			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
+			pstmt.setString(1, answer);
+			pstmt.setInt(2, qno);
+			count = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 }
 
 

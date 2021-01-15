@@ -41,6 +41,10 @@ public class QnAService {
 	public QnaDTO selectQna(int qno) {
 		return dao.getInstance().selectQna(qno);
 	}
+
+	public int updateResponse(int qno, String answer) {
+		return dao.getInstance().updateResponse(qno,answer);
+	}
 	
 	
 }
