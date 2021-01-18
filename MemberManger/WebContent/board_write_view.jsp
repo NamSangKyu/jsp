@@ -66,6 +66,8 @@
 <body>
 
 	<c:if test="${sessionScope.login == null || sessionScope.login == false  }">
+		<c:set var="page" target="${sessionScope }" value="${pageContext.request.requestURI}${pageContext.request.queryString }" property="resultPage" scope="session"/>
+		${pageContext.request.requestURI}${pageContext.request.queryString }
 		<script>
 			alert("로그인을 하셔야 이용할수 있습니다.");
 			location.href="loginView.do";
@@ -75,7 +77,7 @@
 	<jsp:include page="/template/header.jsp" flush="false"></jsp:include>
 	<div id="container">
 		<h2>글쓰기 페이지</h2>
-		<form action="process/board_write_process.jsp" method="post">
+		<form action="boardWriteAction.do" method="post">
 			<table>
 				<tr>
 					<th>제목</th>
@@ -84,8 +86,8 @@
 				<tr>
 					<th>작성자</th>
 					<td>
-						<input type="hidden" name="writer" value="<%=session.getAttribute("id")%>">
-						<%=session.getAttribute("id")%>					
+						<input type="hidden" name="writer" value="${sessionScope.id }">
+						${sessionScope.id }
 					</td>
 				</tr>
 				<tr>

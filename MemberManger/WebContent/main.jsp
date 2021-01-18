@@ -84,7 +84,7 @@
 		<c:forEach var="dto" items="${requestScope.list }">
 			<tr>
 				<td>${dto.bno }</td>
-				<td><a href="?bno=${dto.bno }"> ${dto.title }
+				<td><a href="boardView.do?bno=${dto.bno }"> ${dto.title }
 					<c:if test="${dto.cCount > 0 }">
 						[${dto.cCount}]
 					</c:if>
