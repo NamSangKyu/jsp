@@ -48,7 +48,9 @@ public class HandlerMapping {
 		case "answer.do":
 			controller = new ResponeUpdateController();
 			break;
-			
+		case "main.do":
+			controller = new MainMoveController();
+			break;
 		}
 		return controller;
 	}

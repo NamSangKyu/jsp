@@ -16,8 +16,9 @@
 	<!-- header.jsp를 현재 문서에 포함 -->
 	<jsp:include page="template/header.jsp" flush="false"></jsp:include>
 	<div id="container">
-		메인페이지 ${sessionScope.grade == "master" }<br>
-		${sessionScope.grade += ".png" }
+	<!-- 게시판 기능 추가 기존 게시판에 있는 내용을 el과 jstl로 표현 -->
+
+
 	</div>
 	<jsp:include page="template/footer.jsp" flush="false"></jsp:include>
 	
