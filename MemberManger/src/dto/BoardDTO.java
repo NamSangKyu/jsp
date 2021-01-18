@@ -101,6 +101,7 @@ public class BoardDTO {
 	public void setbHate(int bHate) {
 		this.bHate = bHate;
 	}
+	
 	@Override
 	public String toString() {
 		return "BoardDTO [bno=" + bno + ", title=" + title + ", bDate=" + bDate + ", bCount=" + bCount + ", content="
