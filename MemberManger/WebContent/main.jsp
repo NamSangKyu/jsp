@@ -90,7 +90,22 @@
 				<td>${dto.bHate }</td>
 			</tr>
 		</c:forEach>
-
+			<tr>
+			<td colspan="7">
+					<div class="page_bar">
+						<c:if test="${pagging.previousPageGroup }">
+							<a href="main.do?pageNo=${pagging.startPageOfPageGroup - 1 }">◀</a>
+						</c:if>
+						<c:forEach var="i" begin="${pagging.startPageOfPageGroup}" 
+						end="${pagging.endPageOfPageGroup}">
+							<a href="main.do?pageNo=${i }">${ i}</a>
+						</c:forEach>
+					
+						<c:if test="${pagging.nextPageGroup }">
+							<a href="main.do?pageNo=${pagging.endPageOfPageGroup + 1 }">▶</a>
+						</c:if>
+					</div>
+			</tr>
 		</table>
 	</div>
 	<jsp:include page="template/footer.jsp" flush="false"></jsp:include>
