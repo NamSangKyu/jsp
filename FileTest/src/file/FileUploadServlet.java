@@ -55,8 +55,10 @@ public class FileUploadServlet extends HttpServlet {
 			for(int i=0;i<list.size();i++) {
 				FileItem item = list.get(i);
 				if(item.isFormField()) {
+					//받은 내용중에 파일이 아닌 경우
 					System.out.println(item.getFieldName() + " : " + item.getString(encoding));
 				}else {
+					//받은 내용중에 파일인 경우
 					System.out.println("매개변수 명 : "+item.getFieldName());
 					System.out.println("파일명 : "+item.getName());
 					System.out.println("파일크기 : "+item.getSize());
