@@ -75,6 +75,12 @@
 				<th><a href="main.do?mode=bhate">싫어요</a></th>
 			</tr>
 	<!-- 게시판 기능 추가 기존 게시판에 있는 내용을 el과 jstl로 표현 -->
+		<c:if test="${requestScope.list ==null}">
+			<script>
+				location.href="main.do?pageNo=1";
+				
+			</script>
+		</c:if>
 		<c:forEach var="dto" items="${requestScope.list }">
 			<tr>
 				<td>${dto.bno }</td>
@@ -104,6 +110,7 @@
 						<c:if test="${pagging.nextPageGroup }">
 							<a href="main.do?pageNo=${pagging.endPageOfPageGroup + 1 }">▶</a>
 						</c:if>
+						<a href="boardWriteView.do" class="btn_writer">글쓰기</a>
 					</div>
 			</tr>
 		</table>
