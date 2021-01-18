@@ -142,7 +142,7 @@ public class QnADAO {
 	}
 
 	public int updateResponse(int qno, String answer) {
-		String sql = "update qna set response = response || ? where qno = ?";
+		String sql = "update qna set response = response || ?, status=2 where qno = ?";
 		PreparedStatement pstmt = null;
 		int count = 0;
 		try {
@@ -150,11 +150,31 @@ public class QnADAO {
 			pstmt.setString(1, answer);
 			pstmt.setInt(2, qno);
 			count = pstmt.executeUpdate();
+			DBManager.getInstance().getConn().commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return count;
+	}
+
+	public void updateQnAStatus(int qno) {
+		String sql = "update qna set status = 1 where qno = ? and status not in(1,2)";
+		int count = 0;
+		
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
+			pstmt.setInt(1, qno);
+			count = pstmt.executeUpdate(); 
+			if(count == 0) throw new SQLException("해당 문의글이 없습니다.");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.getInstance().close(pstmt, null);
+		}
+		
 	}
 }
 
