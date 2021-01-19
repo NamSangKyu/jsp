@@ -43,13 +43,13 @@ public class BoardWriteController implements Controller {
 					String field =list.get(i).getFieldName(); 
 					switch(field) {
 					case "title":
-						title = field;
+						title = list.get(i).getString();
 						break;
 					case "writer":
-						id = field;
+						id = list.get(i).getString();
 						break;
 					case "content":
-						content = field;
+						content = list.get(i).getString();
 						break;
 					}
 				}else {
@@ -59,6 +59,8 @@ public class BoardWriteController implements Controller {
 						idx = list.get(i).getName().lastIndexOf("/");
 					String fileName = list.get(i).getName().substring(idx+1);
 					File path = new File(root + "\\" + id + "\\"+fileName);
+					if(!path.getParentFile().exists())
+						path.getParentFile().mkdirs();
 					list.get(i).write(path);
 					//파일 경로 저장할 파일 --> 작성자, 글번호, 경로  DTO 클래스 생성
 					if(fList == null) fList = new ArrayList<FileDTO>();

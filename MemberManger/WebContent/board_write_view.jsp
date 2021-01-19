@@ -8,7 +8,6 @@
 <title>글쓰기 페이지</title>
 <style type="text/css">
 	#container{
-		height: 600px;
 		/* background-color: lime; */
 		width:1200px;
 		margin:0 auto;
@@ -61,6 +60,9 @@
 		resize: none;
 		box-sizing: border-box;
 	}
+	p input{
+		width:80% !important;
+	}
 </style>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -112,8 +114,6 @@
 				<!-- 첨부 파일 -->
 				<tr>
 					<td colspan="2">
-						<p><input type="text" name="writer" placeholder="작성자"></p>
-						<p><button>전송</button></p>
 						<p><input type="file" name="file1"> 
 						<button type="button" id="plus">+</button> <button type="button" id="minus">-</button></p>
 						<p><input type="file" name="file2"></p>
