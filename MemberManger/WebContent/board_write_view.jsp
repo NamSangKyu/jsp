@@ -63,6 +63,22 @@
 	}
 </style>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(function(){
+		var count = 3;//첨부파일 태그 개수
+		$("#plus").click(function(){
+			if(count == 5) return;
+			count++;
+			$("#frm").append("<p><input type='file' name='file"+count+"'></p>");
+		});
+		$("#minus").click(function(){
+			if(count == 1) return;
+				$(this).parent().parent().children("p").last().remove();
+			count--;
+		});
+	});
+</script>
 <body>
 
 	<c:if test="${sessionScope.login == null || sessionScope.login == false  }">
@@ -77,7 +93,7 @@
 	<jsp:include page="/template/header.jsp" flush="false"></jsp:include>
 	<div id="container">
 		<h2>글쓰기 페이지</h2>
-		<form action="boardWriteAction.do" method="post">
+		<form action="boardWriteAction.do" enctype="multipart/form-data" method="post">
 			<table>
 				<tr>
 					<th>제목</th>
@@ -92,6 +108,17 @@
 				</tr>
 				<tr>
 					<th style="vertical-align: top;">내용</th><td><textarea name="content"></textarea></td>
+				</tr>
+				<!-- 첨부 파일 -->
+				<tr>
+					<td colspan="2">
+						<p><input type="text" name="writer" placeholder="작성자"></p>
+						<p><button>전송</button></p>
+						<p><input type="file" name="file1"> 
+						<button type="button" id="plus">+</button> <button type="button" id="minus">-</button></p>
+						<p><input type="file" name="file2"></p>
+						<p><input type="file" name="file3"></p>
+					</td>
 				</tr>
 				<tr>
 					<th><a href="main.do?pageNo=${requestScope.pageNo == null ? 1 : requestScope.pageNo }" class="btn">목록보기</a></th>

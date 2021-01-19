@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import config.DBManager;
 import dto.BoardDTO;
 import dto.CommentDTO;
+import dto.FileDTO;
 
 public class BoardDAO {
 	private static BoardDAO instance = new BoardDAO();
@@ -259,6 +260,25 @@ public class BoardDAO {
 			manager.close(pstmt, rs);
 		}
 		return result;		
+	}
+
+	public void insertFileList(ArrayList<FileDTO> fList) {
+		String sql = "insert into board_file_list values(?,?,?)";
+		PreparedStatement pstmt = null;
+		
+		try {
+			for(int i=0;i<fList.size();i++) {
+				pstmt = manager.getConn().prepareStatement(sql);
+				pstmt.setInt(1, fList.get(i).getBno());
+				pstmt.setString(2, fList.get(i).getWriter());
+				pstmt.setString(3, fList.get(i).getPath());
+				pstmt.executeUpdate();
+				pstmt.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
 

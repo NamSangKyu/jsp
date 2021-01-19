@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dao.BoardDAO;
 import dto.BoardDTO;
 import dto.CommentDTO;
+import dto.FileDTO;
 
 public class BoardService {
 	private static BoardService instance = new BoardService();
@@ -40,6 +41,9 @@ public class BoardService {
 	
 	public ArrayList<CommentDTO> selectCommentDTO(int bno){
 		return dao.selectCommentDTO(bno);
+	}
+	public void insertFileList(ArrayList<FileDTO> fList) {
+		dao.insertFileList(fList);
 	}
 }	
 
