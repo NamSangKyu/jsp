@@ -301,6 +301,34 @@ public class BoardDAO {
 		
 		return list;
 	}
+
+	public void deleteFileList(int bno) {
+		String sql = "delete from board_file_list where bno = ?";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			int count = pstmt.executeUpdate();
+			System.out.println("파일 DB 삭제 결과 : "+count);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void deleteBoard(int bno) {
+		String sql = "delete from board where bno = ?";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			int count = pstmt.executeUpdate();
+			System.out.println("게시글 삭제 결과 : "+count);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
 
 

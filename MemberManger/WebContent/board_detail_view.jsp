@@ -256,7 +256,7 @@
 					<td style="text-align: right;">
 					<c:if test="${sessionScope.id == requestScope.board.writer }">
 						<a href="#" class="btn">수정</a>
-						<a href="#" class="btn">삭제</a>
+						<a href="deleteBoard.do?bno=${requestScope.board.bno }" class="btn">삭제</a>
 					</c:if>
 						<a href="#" class="btn">이전글</a>
 						<a href="#" class="btn">다음글</a>

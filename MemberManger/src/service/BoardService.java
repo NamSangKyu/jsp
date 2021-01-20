@@ -48,6 +48,12 @@ public class BoardService {
 	public ArrayList<FileDTO> selectFileList(int bno) {
 		return dao.selectFileList(bno);
 	}
+	public void deleteFileList(int bno) {
+		dao.deleteFileList(bno);
+	}
+	public void deleteBoard(int bno) {
+		dao.deleteBoard(bno);
+	}
 }	
 
 
