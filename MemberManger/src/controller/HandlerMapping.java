@@ -69,6 +69,9 @@ public class HandlerMapping {
 		case "plusLikeHate.do":
 			controller = new PlusLikeHateController();
 			break;
+		case "insertComment.do":
+			controller = new InsertCommentController();
+			break;
 		}
 		return controller;
 	}

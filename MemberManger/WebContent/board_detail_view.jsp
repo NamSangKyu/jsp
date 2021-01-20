@@ -125,7 +125,7 @@
 		$(".comment_form button").click(function(){
 			var data = $("#comment").serialize();
 			$.ajax({
-				url : "process/comment_insert_process.jsp",
+				url : "insertComment.do",
 				data : data,
 				method:"get",
 				success:function(d){
