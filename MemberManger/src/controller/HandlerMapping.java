@@ -66,11 +66,20 @@ public class HandlerMapping {
 		case "imageLoad.do":
 			controller = new ImageLoadController();
 			break;
+		case "plusLikeHate.do":
+			controller = new PlusLikeHateController();
+			break;
 		}
 		return controller;
 	}
 	
 }
+
+
+
+
+
+
 
 
 

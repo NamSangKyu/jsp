@@ -138,20 +138,24 @@
 			// 0 - like, 1 - hate
 			// bno;
 			var obj = $(this);
-			d = "bno=${request.board.bno}&mode="+$(this).index();
+			d = "bno=${requestScope.board.bno}&mode="+$(this).index();
 			$.ajax({
-				url : "process/board_like_hate_process.jsp",
+				url : "plusLikeHate.do",
 				data : d,
 				method : "get",
 				success:function(result){
 					result = result.trim();
+					if(result == "false"){
+						alert("로그인후 이용하실 수 있습니다.");
+						location.href="${pageContext.request.contextPath}/loginView.do";
+					}
 					console.log(result, result.length);
 					$(obj).children("span").html(result);
 					
 				},
 				error : function(request, status, error) {
 					alert(request.responseText.trim());
-					location.href="${pageContext.request.contextPath}/member/login.jsp";
+					location.href="${pageContext.request.contextPath}/loginView.do";
 					
 				}
 			});
