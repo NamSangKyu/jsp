@@ -69,7 +69,7 @@ public class FileUploadServlet extends HttpServlet {
 							idx = item.getName().lastIndexOf("/");
 						String fileName = item.getName().substring(idx+1);
 						//파일 경로 완성
-						File uploadFile = new File(userRoot.getAbsolutePath()+ "\\" + user + "\\" + fileName);
+						File uploadFile = new File(root + "\\" + fileName);
 						if(!uploadFile.getParentFile().exists())//해당 파일이 들어갈 폴더까지 경로가 유효?
 							uploadFile.getParentFile().mkdirs();//해당 경로까지 모든 폴더 생성
 						System.out.println("셋팅된 전체 경로 : "+uploadFile);
