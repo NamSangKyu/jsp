@@ -15,6 +15,14 @@ public class MyBatisMain {
 		List<EmployeeDTO> list = dao.selectAllEmployee();
 		for(int i=0;i<list.size();i++)
 			System.out.println(list.get(i).toString());
+		System.out.println("-------------------------------------------");
+		list = dao.selectPositionEmployee(4);
+		for(int i=0;i<list.size();i++)
+			System.out.println(list.get(i).toString());
+		System.out.println("-------------------------------------------");
+		list = dao.selectPositionAreaEmployee(2,5);
+		for(int i=0;i<list.size();i++)
+			System.out.println(list.get(i).toString());
 	}
 
 }

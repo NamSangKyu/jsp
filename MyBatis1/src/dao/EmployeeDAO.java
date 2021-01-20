@@ -2,6 +2,7 @@ package dao;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -44,12 +45,28 @@ public class EmployeeDAO {
 		return list;
 	}
 		
-	
+	public List<EmployeeDTO> selectPositionEmployee(int pos){
+		return session.selectList("db.sqlmapper.selectPositionEmployee", pos);
+	}
+	/*직급이 start부터 end까지*/
+	public List<EmployeeDTO> selectPositionAreaEmployee(int start,int end){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("n1", start);
+		map.put("n2", end);
+		return session.selectList("db.sqlmapper.selectPositionAreaEmployee", map);
+	}
 	
 	
 	
 	
 }
+
+
+
+
+
+
+
 
 
 

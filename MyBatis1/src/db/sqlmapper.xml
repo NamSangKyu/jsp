@@ -9,4 +9,10 @@
  	<select id="selectAllEmployee" resultType="dto.EmployeeDTO">
  		select * from employee
  	</select>
+ 	<select id="selectPositionEmployee" resultType="dto.EmployeeDTO" parameterType="int">
+ 		<![CDATA[select * from employee where position < #{no}]]>
+ 	</select>
+ 	<select id="selectPositionAreaEmployee" resultType="dto.EmployeeDTO" parameterType="map">
+ 		<![CDATA[select * from employee where position between #{n1} and #{n2}]]>
+ 	</select>
 </mapper>
