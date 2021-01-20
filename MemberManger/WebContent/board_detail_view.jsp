@@ -210,6 +210,10 @@
 						<c:forEach var="f" items="${requestScope.file }">
 							<a href="filedownload.jsp?writer=${f.writer }&file=${f.fileName}">
 							${f.fileName}</a><br>
+							<!-- 해당 파일이 이미지인지? -->
+							<c:if test="${f.type =='image' }">
+								<img src="imageLoad.do?writer=${f.writer }&file=${f.fileName}&type=${f.type}">
+							</c:if>
 						</c:forEach>
 					</td>
 				</tr>

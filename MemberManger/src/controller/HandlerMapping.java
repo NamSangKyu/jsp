@@ -63,6 +63,9 @@ public class HandlerMapping {
 		case "boardView.do":
 			controller = new BoardViewController();
 			break;
+		case "imageLoad.do":
+			controller = new ImageLoadController();
+			break;
 		}
 		return controller;
 	}
