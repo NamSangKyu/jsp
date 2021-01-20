@@ -281,6 +281,26 @@ public class BoardDAO {
 		}
 		
 	}
+
+	public ArrayList<FileDTO> selectFileList(int bno) {
+		String sql = "select * from board_file_list where bno = ?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<FileDTO> list = new ArrayList<FileDTO>();
+		try {
+			pstmt = manager.getConn().prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(new FileDTO(rs.getInt(1), rs.getString(3)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 }
 
 

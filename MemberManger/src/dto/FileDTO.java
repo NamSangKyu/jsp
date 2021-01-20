@@ -6,13 +6,6 @@ import java.io.File;
 public class FileDTO {
 	//파일 전체경로
 	private int bno;
-	public int getBno() {
-		return bno;
-	}
-
-	public void setBno(int bno) {
-		this.bno = bno;
-	}
 	private String path;
 	private String fileName;
 	private String type;
@@ -33,6 +26,30 @@ public class FileDTO {
 		}
 	}
 	
+	public FileDTO(int bno, String path) {
+		super();
+		this.bno = bno;
+		this.path = path;
+		fileName = path.substring(path.lastIndexOf("\\")+1);
+		switch(fileName.substring(fileName.lastIndexOf(".")+1)) {
+		case "png":
+		case "bmp":
+		case "jpg":
+		case "gif":
+			type="image";
+			break;
+		default:
+			type="normal";
+		}
+	}
+
+	public int getBno() {
+		return bno;
+	}
+
+	public void setBno(int bno) {
+		this.bno = bno;
+	}
 	public String getPath() {
 		return path;
 	}

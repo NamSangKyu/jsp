@@ -72,7 +72,7 @@
 		$("#plus").click(function(){
 			if(count == 5) return;
 			count++;
-			$("#frm").append("<p><input type='file' name='file"+count+"'></p>");
+			$("#file_form").append("<p><input type='file' name='file"+count+"'></p>");
 		});
 		$("#minus").click(function(){
 			if(count == 1) return;
@@ -113,7 +113,7 @@
 				</tr>
 				<!-- 첨부 파일 -->
 				<tr>
-					<td colspan="2">
+					<td colspan="2" id="file_form">
 						<p><input type="file" name="file1"> 
 						<button type="button" id="plus">+</button> <button type="button" id="minus">-</button></p>
 						<p><input type="file" name="file2"></p>

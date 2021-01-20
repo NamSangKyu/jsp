@@ -68,7 +68,7 @@ public class BoardWriteController implements Controller {
 							idx = item.getName().lastIndexOf("/");
 						String fileName = item.getName().substring(idx+1);
 						//파일 경로 완성
-						File uploadFile = new File(root + "\\" + fileName);
+						File uploadFile = new File(root + "\\"+ writer + "\\" + fileName);
 						if(!uploadFile.getParentFile().exists())//해당 파일이 들어갈 폴더까지 경로가 유효?
 							uploadFile.getParentFile().mkdirs();//해당 경로까지 모든 폴더 생성
 						System.out.println("셋팅된 전체 경로 : "+uploadFile);
@@ -82,12 +82,14 @@ public class BoardWriteController implements Controller {
 			}
 			System.out.println(writer);
 			BoardDTO dto = BoardService.getInstance().insertBoardDTO(new BoardDTO(title, writer, content));
-			for(int i=0;i<fList.size();i++) {
-				fList.get(i).setBno(dto.getBno());
-			}
 			//파일 테이블에 저장
-			BoardService.getInstance().insertFileList(fList);
-			System.out.println("파일쓰기 완료");
+			if(fList.size()>0) {
+				for(int i=0;i<fList.size();i++) {
+					fList.get(i).setBno(dto.getBno());
+				}
+				BoardService.getInstance().insertFileList(fList);
+				System.out.println("파일쓰기 완료");
+			}
 			view = new ModelAndView("boardView.do?bno="+dto.getBno(), false);
 		} catch (FileUploadException e) {
 			e.printStackTrace();
