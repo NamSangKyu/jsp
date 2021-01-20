@@ -4,15 +4,16 @@ import java.io.File;
 
 //파일 정보를 저장
 public class FileDTO {
-	//파일 전체경로
 	private int bno;
-	private String path;
 	private String fileName;
+	private String writer;
 	private String type;
-	public FileDTO(File file) {
+
+	public FileDTO(File file,String writer) {
 		super();
-		this.path = file.getAbsolutePath();
 		this.fileName = file.getName();
+		this.writer = writer;
+		bno = 0;
 		//error.png 
 		switch(fileName.substring(fileName.lastIndexOf(".")+1)) {
 		case "png":
@@ -26,11 +27,11 @@ public class FileDTO {
 		}
 	}
 	
-	public FileDTO(int bno, String path) {
+	public FileDTO(int bno, String writer, String fileName) {
 		super();
 		this.bno = bno;
-		this.path = path;
-		fileName = path.substring(path.lastIndexOf("\\")+1);
+		this.writer = writer;
+		this.fileName = fileName;
 		switch(fileName.substring(fileName.lastIndexOf(".")+1)) {
 		case "png":
 		case "bmp":
@@ -50,12 +51,6 @@ public class FileDTO {
 	public void setBno(int bno) {
 		this.bno = bno;
 	}
-	public String getPath() {
-		return path;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
 	public String getFileName() {
 		return fileName;
 	}
@@ -67,6 +62,14 @@ public class FileDTO {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 	
 	

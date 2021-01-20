@@ -205,6 +205,15 @@
 					</td>
 				</tr>
 				<tr>
+					<td colspan="2">
+						첨부파일<br>
+						<c:forEach var="f" items="${requestScope.file }">
+							<a href="filedownload.jsp?writer=${f.writer }&file=${f.fileName}">
+							${f.fileName}</a><br>
+						</c:forEach>
+					</td>
+				</tr>
+				<tr>
 					<td colspan="2" class="text_center">
 						<a href="#" class="btn_like">
 							<img src="${pageContext.request.contextPath }/img/like.png">

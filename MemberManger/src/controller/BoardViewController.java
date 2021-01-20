@@ -22,6 +22,7 @@ public class BoardViewController implements Controller {
 			ArrayList<CommentDTO> list = BoardService.getInstance().selectCommentDTO(bno);
 			request.setAttribute("comment", list);
 			ArrayList<FileDTO> fList = BoardService.getInstance().selectFileList(bno);
+			request.setAttribute("file", fList);
 		}
 		return new ModelAndView("board_detail_view.jsp", false);
 	}

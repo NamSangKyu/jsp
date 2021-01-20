@@ -270,8 +270,8 @@ public class BoardDAO {
 			for(int i=0;i<fList.size();i++) {
 				pstmt = manager.getConn().prepareStatement(sql);
 				pstmt.setInt(1, fList.get(i).getBno());
-				pstmt.setString(2, null);
-				pstmt.setString(3, fList.get(i).getPath());
+				pstmt.setString(2, fList.get(i).getWriter());
+				pstmt.setString(3, fList.get(i).getFileName());
 				pstmt.executeUpdate();
 				manager.getConn().commit();
 			}
@@ -293,7 +293,7 @@ public class BoardDAO {
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				list.add(new FileDTO(rs.getInt(1), rs.getString(3)));
+				list.add(new FileDTO(rs.getInt(1),rs.getString(2), rs.getString(3)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

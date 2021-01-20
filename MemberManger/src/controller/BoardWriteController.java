@@ -73,7 +73,7 @@ public class BoardWriteController implements Controller {
 							uploadFile.getParentFile().mkdirs();//해당 경로까지 모든 폴더 생성
 						System.out.println("셋팅된 전체 경로 : "+uploadFile);
 						item.write(uploadFile);//파일 쓰기
-						FileDTO dto = new FileDTO(uploadFile);
+						FileDTO dto = new FileDTO(0,writer,uploadFile.getName());
 						fList.add(dto);
 						
 					}
@@ -86,6 +86,8 @@ public class BoardWriteController implements Controller {
 			if(fList.size()>0) {
 				for(int i=0;i<fList.size();i++) {
 					fList.get(i).setBno(dto.getBno());
+					fList.get(i).setWriter(dto.getWriter());
+					
 				}
 				BoardService.getInstance().insertFileList(fList);
 				System.out.println("파일쓰기 완료");
