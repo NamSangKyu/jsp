@@ -33,7 +33,6 @@ public class DeleteBoardController implements Controller {
 		BoardService.getInstance().deleteBoard(bno);
 		return new ModelAndView("main.do", true);
 	}
-
 }
 
 
