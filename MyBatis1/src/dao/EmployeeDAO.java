@@ -2,11 +2,14 @@ package dao;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import dto.EmployeeDTO;
 
 public class EmployeeDAO {
 	private static EmployeeDAO instance = new EmployeeDAO();
@@ -36,7 +39,11 @@ public class EmployeeDAO {
 		return count;
 	}
 	
-	
+	public List<EmployeeDTO> selectAllEmployee() {
+		List<EmployeeDTO> list = session.selectList("db.sqlmapper.selectAllEmployee");
+		return list;
+	}
+		
 	
 	
 	

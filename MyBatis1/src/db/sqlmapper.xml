@@ -6,4 +6,7 @@
  	<select id="selectAllCountEmployee" resultType="int">
  		select count(*) from employee
  	</select>
+ 	<select id="selectAllEmployee" resultType="dto.EmployeeDTO">
+ 		select * from employee
+ 	</select>
 </mapper>
