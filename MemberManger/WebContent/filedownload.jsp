@@ -13,7 +13,8 @@
 		System.out.println(file.toString());
 		FileInputStream fis = new FileInputStream(path);
 		String encodingName = URLEncoder.encode(path,"utf-8");
-		
+		System.out.println("파일 이름 : "+fileName);
+		fileName = URLEncoder.encode(fileName,"utf-8");
 		response.setHeader("Content-Disposition", "attachment;filename="+fileName);
 		response.setHeader("Content-Transfer-Encoding","binary");
 		response.setContentLength((int)file.length());
