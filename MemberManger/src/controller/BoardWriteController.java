@@ -53,7 +53,7 @@ public class BoardWriteController implements Controller {
 					else if(item.getFieldName().equals("writer"))
 						writer = item.getString(encoding);
 					else if(item.getFieldName().equals("content"))
-						writer = item.getString(encoding);
+						content = item.getString(encoding);
 					
 					System.out.println(item.getFieldName() + " : " + item.getString(encoding));
 				}else {
@@ -80,16 +80,15 @@ public class BoardWriteController implements Controller {
 					
 				}
 			}
+			System.out.println(writer);
 			BoardDTO dto = BoardService.getInstance().insertBoardDTO(new BoardDTO(title, writer, content));
 			for(int i=0;i<fList.size();i++) {
 				fList.get(i).setBno(dto.getBno());
 			}
 			//파일 테이블에 저장
 			BoardService.getInstance().insertFileList(fList);
-			request.setAttribute("file", fList);
-			request.setAttribute("dto", dto); 
 			System.out.println("파일쓰기 완료");
-			view = new ModelAndView("board_detail_view.jsp", false);
+			view = new ModelAndView("boardView.do?bno="+dto.getBno(), false);
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

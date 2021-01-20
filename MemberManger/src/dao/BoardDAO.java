@@ -273,8 +273,9 @@ public class BoardDAO {
 				pstmt.setString(2, null);
 				pstmt.setString(3, fList.get(i).getPath());
 				pstmt.executeUpdate();
-				pstmt.close();
+				manager.getConn().commit();
 			}
+			pstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
