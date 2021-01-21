@@ -49,6 +49,9 @@ public class EmployeeDAO {
 		return mapper.updateEmployee(map);
 	}
 	
+	public List<EmployeeDTO> selectNameEmployee(String name){
+		return mapper.selectNameEmployee(name);
+	}
 }
 
 

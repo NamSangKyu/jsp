@@ -36,6 +36,10 @@ public interface SQLMapper {
 	
 	@Update("update employee set name = #{name}, department=#{department}, position = #{position} where eno like #{eno}")
 	public int updateEmployee(HashMap<String, Object> map);
+	
+	@Select("select * from employee where name like '%'||#{name}||'%'")
+	public List<EmployeeDTO> selectNameEmployee(String name);
+	
 }
 
 

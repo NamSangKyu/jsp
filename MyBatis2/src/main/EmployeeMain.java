@@ -1,4 +1,5 @@
 package main;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ public class EmployeeMain {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		List<EmployeeDTO> list = EmployeeDAO.getInstance().selectAllEmployee();
-		for(int i=0;i<list.size();i++) {
+		for (int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i).toString());
 		}
 		System.out.println("-------------------------------------------");
@@ -30,21 +31,22 @@ public class EmployeeMain {
 		 * System.out.println(EmployeeDAO.getInstance().insertEmployee(new
 		 * EmployeeDTO(eno, name, department, position)));
 		 * System.out.println("-------------------------------------------");
+		 * 
+		 * String eno = sc.nextLine(); String name = sc.nextLine(); String department =
+		 * sc.nextLine(); int position = sc.nextInt(); HashMap<String, Object> map = new
+		 * HashMap<String, Object>(); map.put("eno", eno); map.put("name", name);
+		 * map.put("department", department); map.put("position", position);
+		 * System.out.println(EmployeeDAO.getInstance().updateEmployee(map));
 		 */
-		String eno = sc.nextLine();
 		String name = sc.nextLine();
-		String department = sc.nextLine();
-		int position = sc.nextInt();
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("eno", eno);
-		map.put("name", name);
-		map.put("department", department);
-		map.put("position", position);
-		System.out.println(EmployeeDAO.getInstance().updateEmployee(map));
-		
+		list = EmployeeDAO.getInstance().selectNameEmployee(name);
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).toString());
+		}
 	}
 
 }
+
 
 
 
