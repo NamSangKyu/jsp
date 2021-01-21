@@ -2,6 +2,7 @@ package config;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import dto.EmployeeDTO;
@@ -22,6 +23,12 @@ public interface SQLMapper {
 	
 	@Select("select * from employee where position < #{no}")
 	public List<EmployeeDTO> selectPositionEmployee(int param);
+	
+	@Select("select * from employee where position between #{n1} and #{n2}")
+	public List<EmployeeDTO> selectPositionAreaEmployee(@Param("n1")int num1,@Param("n2") int num2 );
+	
+	
+	
 }
 
 
