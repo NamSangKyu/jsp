@@ -22,7 +22,7 @@ public class EmployeeDAO {
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
 			factory = new SqlSessionFactoryBuilder().build(inputStream);
-			session = factory.openSession();
+			session = factory.openSession(false);//false - not auto commit
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -56,7 +56,13 @@ public class EmployeeDAO {
 		return session.selectList("db.sqlmapper.selectPositionAreaEmployee", map);
 	}
 	
-	
+	public int insertEmployee(EmployeeDTO dto) {
+		return session.insert("db.sqlmapper.insertEmployee", dto);		
+	}
+
+	public int updateEmployee(EmployeeDTO dto) {
+		return session.update("db.sqlmapper.updateEmployee",dto);
+	}
 	
 	
 }

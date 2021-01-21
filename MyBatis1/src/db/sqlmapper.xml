@@ -15,4 +15,23 @@
  	<select id="selectPositionAreaEmployee" resultType="dto.EmployeeDTO" parameterType="map">
  		<![CDATA[select * from employee where position between #{n1} and #{n2}]]>
  	</select>
+ 	<insert id="insertEmployee" parameterType="dto.EmployeeDTO">
+ 		insert into employee(eno, name, department,position) 
+ 		values(#{eno},#{name},#{department},#{position})
+ 	</insert>
+ 	<update id="updateEmployee" parameterType="dto.EmployeeDTO">
+ 		update employee set name = #{name}, department=#{department}, position = #{position}
+ 		where eno = #{eno} 
+ 	</update>
+ 	
 </mapper>
+
+
+
+
+
+
+
+
+
+
