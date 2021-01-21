@@ -1,10 +1,12 @@
 package config;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import dto.EmployeeDTO;
 
@@ -32,6 +34,8 @@ public interface SQLMapper {
 	@Insert("insert into employee(eno, name, department,position) values(#{eno},#{name},#{department},#{position})")
 	public int insertEmployee(EmployeeDTO dto);
 	
+	@Update("update employee set name = #{name}, department=#{department}, position = #{position} where eno like #{eno}")
+	public int updateEmployee(HashMap<String, Object> map);
 }
 
 

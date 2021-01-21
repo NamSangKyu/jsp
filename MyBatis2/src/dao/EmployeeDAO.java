@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -42,6 +43,10 @@ public class EmployeeDAO {
 	
 	public int insertEmployee(EmployeeDTO dto) {
 		return mapper.insertEmployee(dto);
+	}
+
+	public int updateEmployee(HashMap<String, Object> map) {
+		return mapper.updateEmployee(map);
 	}
 	
 }
