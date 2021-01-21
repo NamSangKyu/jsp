@@ -27,6 +27,10 @@ public class EmployeeDAO {
 	public List<EmployeeDTO> selectAllEmployee(){
 		return mapper.selectEmployeeAll();
 	}
+
+	public int selectEmployeeCount() {
+		return mapper.selectEmployeeCount();
+	}
 	
 	
 	
