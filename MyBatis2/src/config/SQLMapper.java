@@ -19,6 +19,9 @@ public interface SQLMapper {
 	
 	@Select("select count(*) from employee")
 	public int selectEmployeeCount();
+	
+	@Select("select * from employee where position < #{no}")
+	public List<EmployeeDTO> selectPositionEmployee(int param);
 }
 
 

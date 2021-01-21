@@ -32,9 +32,18 @@ public class EmployeeDAO {
 		return mapper.selectEmployeeCount();
 	}
 	
-	
+	public List<EmployeeDTO> selectPositionEmployee(int pos){
+		return mapper.selectPositionEmployee(pos);
+	}
 	
 }
+
+
+
+
+
+
+
 
 
 
