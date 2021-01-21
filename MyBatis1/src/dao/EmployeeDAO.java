@@ -63,7 +63,13 @@ public class EmployeeDAO {
 	public int updateEmployee(EmployeeDTO dto) {
 		return session.update("db.sqlmapper.updateEmployee",dto);
 	}
-	
+
+	public List<EmployeeDTO> selectNameEmployee(String search) {
+		return session.selectList("db.sqlmapper.selectNameEmployee",search);
+	}
+	public int deleteEmployee(int position) {
+		return session.delete("db.sqlmapper.deleteEmployee", position);
+	}
 	
 }
 

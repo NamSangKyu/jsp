@@ -23,6 +23,12 @@
  		update employee set name = #{name}, department=#{department}, position = #{position}
  		where eno = #{eno} 
  	</update>
+ 	<select id="selectNameEmployee" resultType="dto.EmployeeDTO" parameterType="string">
+ 		select * from employee where name like '%'||#{name}||'%'
+ 	</select>
+ 	<delete id="deleteEmployee" parameterType="int">
+ 		delete from employee where position = #{position}
+ 	</delete>
  	
 </mapper>
 
