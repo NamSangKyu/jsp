@@ -17,7 +17,7 @@ public class DBManager {
 	private SqlSession session;
 
 	private DBManager() {
-		String resource = "db/mybatis-config.xml";
+		String resource = "config/mybatis-config.xml";
 		InputStream inputStream;
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
