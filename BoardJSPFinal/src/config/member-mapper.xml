@@ -3,7 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
- 	 	
+ 	 	<select id="selectMemberVO" parameterType="string">
+ 	 		select * from member where id like #{id}
+ 	 	</select>
+ 	 	<insert id="insertMemberVO" parameterType="vo.MemberVO">
+ 	 		insert into member(id,pass,name,age) values(#{id},#{pass},#{name},#{age}) 	 	
+ 	 	</insert>
 </mapper>
 
 
