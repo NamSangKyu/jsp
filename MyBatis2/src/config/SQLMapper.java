@@ -38,7 +38,8 @@ public interface SQLMapper {
 	public int updateEmployee(HashMap<String, Object> map);
 	
 	@Select("select * from employee where name like '%'||#{name}||'%'")
-	public List<EmployeeDTO> selectNameEmployee(String name);
+	public List<EmployeeDTO> selectNameEmployee(@Param("name") String name);
+	//public List<EmployeeDTO> selectNameEmployee(String name);//매개변수가 하나면 @Param은 선택사항
 	
 }
 
