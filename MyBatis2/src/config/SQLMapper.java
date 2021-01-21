@@ -2,6 +2,7 @@ package config;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -27,7 +28,9 @@ public interface SQLMapper {
 	@Select("select * from employee where position between #{n1} and #{n2}")
 	public List<EmployeeDTO> selectPositionAreaEmployee(@Param("n1")int num1,@Param("n2") int num2 );
 	
-	
+	//map이나 dto가들어오면 매개변수랑 자동으로 매칭
+	@Insert("insert into employee(eno, name, department,position) values(#{eno},#{name},#{department},#{position})")
+	public int insertEmployee(EmployeeDTO dto);
 	
 }
 

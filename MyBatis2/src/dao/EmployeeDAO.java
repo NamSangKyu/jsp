@@ -40,6 +40,10 @@ public class EmployeeDAO {
 		return mapper.selectPositionAreaEmployee(n1, n2);
 	}
 	
+	public int insertEmployee(EmployeeDTO dto) {
+		return mapper.insertEmployee(dto);
+	}
+	
 }
 
 
