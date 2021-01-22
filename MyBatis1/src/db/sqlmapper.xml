@@ -29,7 +29,43 @@
  	<delete id="deleteEmployee" parameterType="int">
  		delete from employee where position = #{position}
  	</delete>
+ 	<select id="selectSearchEmployee" parameterType="map" resultType="dto.EmployeeDTO">
+ 		<!-- 
+ 		<if test="kind.equals('name')">
+	 		select * from (select e.eno, e.name, e.department, e.position, es.salary
+	 		 from employee e , employee_salary es where e.eno = es.eno(+))
+	 		 where name like '%'||#{search}||'%' 
+ 		</if>
+ 		<if test="kind.equals('eno')">
+	 		select * from (select e.eno, e.name, e.department, e.position, es.salary
+	 		 from employee e , employee_salary es where e.eno = es.eno(+))
+	 		 where eno like '%'||#{search}||'%' 
+ 		</if>
+ 		<if test="kind.equals('department')">
+	 		select * from (select e.eno, e.name, e.department, e.position, es.salary
+	 		 from employee e , employee_salary es where e.eno = es.eno(+))
+	 		 where department like '%'||#{search}||'%'
+ 		</if>
+ 		 -->
+ 		<choose>
+ 			<when test="kind.equals('name')">
+ 				select * from (select e.eno, e.name, e.department, e.position, es.salary
+	 		 from employee e , employee_salary es where e.eno = es.eno(+))
+	 		 where name like '%'||#{search}||'%'
+ 			</when>
+ 			<when test="kind.equals('eno')">
+	 		select * from (select e.eno, e.name, e.department, e.position, es.salary
+	 		 from employee e , employee_salary es where e.eno = es.eno(+))
+	 		 where eno like '%'||#{search}||'%' 
+	 		</when>
+	 		<otherwise>
+		 		select * from (select e.eno, e.name, e.department, e.position, es.salary
+		 		 from employee e , employee_salary es where e.eno = es.eno(+))
+		 		 where department like '%'||#{search}||'%'
+	 		</otherwise>
+ 		</choose>
  	
+ 	</select>
 </mapper>
 
 

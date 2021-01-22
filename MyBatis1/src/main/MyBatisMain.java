@@ -50,15 +50,25 @@ public class MyBatisMain {
 		List<EmployeeDTO> list = dao.selectNameEmployee(search);
 		for (int i = 0; i < list.size(); i++)
 			System.out.println(list.get(i).toString());
-		 */
 		System.out.println("삭제할 직급 번호 입력 1~7 : ");
 		int position = sc.nextInt();
 		System.out.println(dao.deleteEmployee(position));
 		List<EmployeeDTO> list = dao.selectAllEmployee();
 		for (int i = 0; i < list.size(); i++)
 			System.out.println(list.get(i).toString());
-		
-		
+		 */
+		List<EmployeeDTO> list = dao.selectSearchEmployee("name", "수");
+		for (int i = 0; i < list.size(); i++)
+			System.out.println(list.get(i).toString());
+		System.out.println("----------------------------------");
+		list = dao.selectSearchEmployee("department", "영");
+		for (int i = 0; i < list.size(); i++)
+			System.out.println(list.get(i).toString());
+		System.out.println("----------------------------------");
+		list = dao.selectSearchEmployee("eno", "A");
+		for (int i = 0; i < list.size(); i++)
+			System.out.println(list.get(i).toString());
+		System.out.println("----------------------------------");
 	}
 
 }

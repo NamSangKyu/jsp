@@ -70,7 +70,12 @@ public class EmployeeDAO {
 	public int deleteEmployee(int position) {
 		return session.delete("db.sqlmapper.deleteEmployee", position);
 	}
-	
+	public List<EmployeeDTO> selectSearchEmployee(String kind, String search){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("kind", kind);
+		map.put("search", search);
+		return session.selectList("selectSearchEmployee", map);
+	}
 }
 
 

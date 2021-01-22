@@ -21,6 +21,9 @@
  	 	<select id="selectAllMember" resultType="vo.MemberVO">
  	 		select id, name, pass, age, grade_name from member, grade_list where grade_no = grade order by grade desc
  	 	</select>
+ 	 	<select id="">
+ 	 	
+ 	 	</select>
 </mapper>
 
 
