@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -33,41 +34,17 @@ public class MemberDAO {
 	}
 
 	public void updatePass(String id, String pass) throws MemberException {
-		PreparedStatement pstmt = null;
-		String sql = "update  member set pass = ? where id = ?";
-		try {
-			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
-			pstmt.setString(1, pass);
-			pstmt.setString(2,id);
-			int count = pstmt.executeUpdate();
-			if(count == 0)
-				throw new MemberException("암호수정에 실패했습니다.");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("pass", pass);
+		session.update("member.updatePass",map);		
 	}
 
 	public MemberVO login(String id, String pass) {
-		MemberVO vo = null;
-		String sql = "select id, name, pass, age, grade_name from member, grade_list where grade_no = grade and id like ? and pass like ?";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setString(2, pass);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				vo = new MemberVO(rs.getString(1), null, rs.getString(2), rs.getInt(4), rs.getString(5));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			DBManager.getInstance().close(pstmt, rs);
-		}
-		
-		return vo;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("pass", pass);
+		return session.selectOne("member.login", map);
 	}
 
 	public void updateMember(MemberVO vo) throws MemberException {

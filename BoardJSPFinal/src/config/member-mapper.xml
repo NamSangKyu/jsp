@@ -9,6 +9,12 @@
  	 	<insert id="insertMemberVO" parameterType="vo.MemberVO">
  	 		insert into member(id,pass,name,age) values(#{id},#{pass},#{name},#{age}) 	 	
  	 	</insert>
+ 	 	<update id="updatePass" parameterType="map">
+ 	 		update  member set pass = #{pass} where id = #{id}
+ 	 	</update>
+ 	 	<select id="login" parameterType="map" resultType="vo.MemberVO">
+ 	 		select id, name, pass, age, grade_name from member, grade_list where grade_no = grade and id like #{id} and pass like #{pass}
+ 	 	</select>
 </mapper>
 
 
