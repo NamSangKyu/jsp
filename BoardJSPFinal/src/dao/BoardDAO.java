@@ -44,22 +44,8 @@ public class BoardDAO {
 	}
 
 	public void addCount(int bno) {
-		String sql = "update board set bcount=bcount + 1 where bno = ?";
-		PreparedStatement pstmt = null;
-
-		try {
-			Connection conn = manager.getConn();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, bno);
-
-			pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			manager.close(pstmt, null);
-		}
-
+		session.update("addCount", bno);
+		session.commit();
 	}
 
 	public void addLikeHate(int bno, int mode) {
