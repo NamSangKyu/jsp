@@ -21,9 +21,30 @@
  	 	<select id="selectAllMember" resultType="vo.MemberVO">
  	 		select id, name, pass, age, grade_name from member, grade_list where grade_no = grade order by grade desc
  	 	</select>
- 	 	<select id="">
+ 	 	<select id="searchMember" parameterType="map" resultType="vo.MemberVO">
+ 	 		<choose>
+ 	 			<when test="kind.equals('name')">
+ 	 				select id, name, pass, age, grade_name from member, grade_list 
+ 	 				where grade_no = grade and name like '%'||#{search}||'%' order by grade desc
+ 	 			</when>
+ 	 			<when test="kind.equals('id')">
+ 	 				select id, name, pass, age, grade_name from member, grade_list 
+ 	 				where grade_no = grade and id like '%'||#{search}||'%' order by grade desc
+ 	 			</when>
+ 	 			<otherwise>
+ 	 				select id, name, pass, age, grade_name from member, grade_list 
+ 	 				where grade_no = grade and grade = #{search} order by grade desc
+ 	 			</otherwise>
+ 	 		</choose>
  	 	
  	 	</select>
+ 	 	<update id="updateManageMember" parameterType="vo.MemberVO">
+ 	 		update member set name=#{name},age=#{age},
+ 	 		grade=(select grade_no from grade_list where grade_name = #{grade}) where id=#{id}
+ 	 	</update>
+ 	 	<delete id="deleteMember" parameterType="String">
+ 	 		delete from member where id = #{id}	
+ 	 	</delete>
 </mapper>
 
 

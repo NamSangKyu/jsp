@@ -59,68 +59,20 @@ public class MemberDAO {
 		return list;
 	}
 
-	public ArrayList<MemberVO> searchMember(String kind, String search) {
-		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, name, pass, age, grade_name "
-				+ "from member, grade_list where grade_no = grade and " + kind + " like ? order by grade desc";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
-			pstmt.setString(1, "%" + search + "%");
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				list.add(new MemberVO(rs.getString(1), null, rs.getString(2), 
-						rs.getInt(4), rs.getString(5)));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			DBManager.getInstance().close(pstmt, rs);
-		}
-		
-		return list;
+	public List<MemberVO> searchMember(String kind, String search) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("kind", kind);
+		map.put("search", search);
+		return session.selectList("member.searchMember", map);
 	}
 
-	public boolean updateManageMember(MemberVO vo) {
-		String sql = "update member set name=?,age=?,grade="
-				+ "(select grade_no from grade_list where grade_name = ?) where id=?";
-		
-		PreparedStatement pstmt = null;
-		try {
-			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
-			pstmt.setString(1, vo.getName());
-			pstmt.setInt(2, vo.getAge());
-			pstmt.setString(3, vo.getGrade());
-			pstmt.setString(4, vo.getId());
-			
-			int count = pstmt.executeUpdate();
-			if(count == 0)
-				return false;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return true;
+	public int updateManageMember(MemberVO vo) {
+		return session.update("member.updateManageMember", vo);		
 	}
 	
 	
-	public boolean deleteMember(String id) {
-		String sql = "delete from member where id=?";
-		
-		PreparedStatement pstmt = null;
-		try {
-			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
-			pstmt.setString(1, id);
-
-			int count = pstmt.executeUpdate();
-			if(count == 0)
-				return false;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return true;
+	public int deleteMember(String id) {
+		return session.delete("member.deleteMember",id);
 	}
 	
 	
