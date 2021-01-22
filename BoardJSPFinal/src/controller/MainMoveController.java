@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +23,7 @@ public class MainMoveController implements Controller {
 		if(request.getParameter("mode") != null)
 			mode = request.getParameter("mode");
 		
-		ArrayList<BoardDTO> list = BoardService.getInstance().selectBoardList(pageNo, mode);	
+		List<BoardDTO> list = BoardService.getInstance().selectBoardList(pageNo, mode);	
 		request.setAttribute("list", list);
 		
 		//페이징 처리

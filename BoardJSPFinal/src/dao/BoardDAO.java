@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -68,32 +69,11 @@ public class BoardDAO {
 		return result;
 	}
 
-	public ArrayList<BoardDTO> selectBoardList(int pageNo,String mode) {
-		String sql = "select * from "
-				+ "(select ceil(rownum / 7) as pagenum,bno,title,bdate,bcount,"
-				+ "writer,content,blike,bhate,comment_count from "
-				+ "(select b.*, nvl(c.comment_count,0) as comment_count from "
-				+ "board b,(select bno, count(*) as comment_count from "
-				+ "board_comment group by bno) c where b.bno = c.bno(+) order by b."+mode+" desc)) "
-				+ "where pagenum = ?";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
-		try {
-			pstmt = manager.getConn().prepareStatement(sql);
-			pstmt.setInt(1, pageNo);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				list.add(new BoardDTO(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6),
-						rs.getString(7), rs.getInt(8), rs.getInt(9),rs.getInt(10)));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			manager.close(pstmt, rs);
-		}
-		return list;
+	public List<BoardDTO> selectBoardList(int pageNo,String mode) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("pageNo", pageNo);
+		map.put("mode", mode);
+		return session.selectList("selectBoardList", map);
 	}
 
 	public int insertBoardComment(CommentDTO dto) {
