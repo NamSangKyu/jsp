@@ -81,7 +81,7 @@ td{
 				}else{
 					console.log("수정 실패");						
 				}
-				location.href = "memberManageMain.do";
+				location.href = "memberAdminMain.do";
 			}
 		});
 	}
@@ -94,13 +94,13 @@ td{
 			data : data,
 			method:"get",
 			success:function(d){
-				d = Boolean(d);
-				if(d){
+				d = Number(d);
+				if(d==1){
 					console.log("삭제 성공");
 				}else{
 					console.log("삭제 실패");						
 				}
-				location.href = "memberManageMain.do";	
+				location.href = "memberAdminMain.do";	
 			}
 		});
 	}

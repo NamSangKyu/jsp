@@ -67,12 +67,16 @@ public class MemberDAO {
 	}
 
 	public int updateManageMember(MemberVO vo) {
-		return session.update("member.updateManageMember", vo);		
+		int count = session.update("member.updateManageMember", vo);
+		session.commit();
+		return count;		
 	}
 	
 	
 	public int deleteMember(String id) {
-		return session.delete("member.deleteMember",id);
+		int count = session.delete("member.deleteMember",id);
+		session.commit();
+		return count;
 	}
 	
 	

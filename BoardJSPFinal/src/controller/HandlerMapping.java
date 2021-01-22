@@ -80,6 +80,10 @@ public class HandlerMapping {
 			break;
 		case "memberSerach.do":
 			controller = new MemberSearchController();
+			break;
+		case "memberAjaxUpdate.do":
+			controller = new MemberAjaxUpdateController();
+			break;
 		}
 		return controller;
 	}
