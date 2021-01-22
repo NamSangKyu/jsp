@@ -15,6 +15,27 @@
  	 	<update id="addCount" parameterType="int">
  	 		update board set bcount=bcount + 1 where bno = #{bno}
  	 	</update>
+ 	 	<update id="addLikeHate" parameterType="map">
+ 	 		update board set 
+ 	 		<choose>
+				<when test="mode == 0">
+		 	 		blike = blike + 1 
+				</when>
+ 	 			<otherwise>
+		 	 		bhate= bhate+ 1 
+ 	 			</otherwise>
+ 	 		</choose>
+ 	 		where bno=#{bno}
+ 	 	</update>
+ 	 	<select id="selectLikeHate" parameterType="map" resultType="int">
+ 	 		<if test="mode==0">
+				select blike from board where bno=#{bno}
+			</if>
+ 	 		<if test="mode==0">
+				select bhate from board where bno=#{bno}
+			</if>
+ 	 	</select>
+ 	 	
 </mapper>
 
 

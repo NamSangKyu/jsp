@@ -17,7 +17,9 @@ public class BoardViewController implements Controller {
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) {
 		if(request.getAttribute("board") == null) {
 			int bno = Integer.parseInt(request.getParameter("bno"));
+			System.out.println("bno = "+ bno);
 			BoardDTO board = BoardService.getInstance().selectBoardDTO(bno);
+			System.out.println(board.toString());
 			request.setAttribute("board", board);
 			ArrayList<CommentDTO> list = BoardService.getInstance().selectCommentDTO(bno);
 			request.setAttribute("comment", list);

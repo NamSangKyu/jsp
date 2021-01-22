@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -40,58 +41,31 @@ public class BoardDAO {
 	}
 
 	public BoardDTO selectBoardDTO(int bno) {
-		return session.selectOne("board.selectBoardNo", bno);
+		BoardDTO dto =session.selectOne("board.selectBoardNo", bno);
+		return dto;
 	}
 
 	public void addCount(int bno) {
-		session.update("addCount", bno);
+		session.update("board.addCount", bno);
 		session.commit();
 	}
 
 	public void addLikeHate(int bno, int mode) {
-		String sql;
-		if (mode == 0)
-			sql = "update board set blike = blike + 1 where bno=?";
-		else
-			sql = "update board set bhate = bhate + 1 where bno=?";
-
-		PreparedStatement pstmt = null;
-
-		try {
-			Connection conn = manager.getConn();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, bno);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			manager.close(pstmt, null);
-		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bno",bno );
+		map.put("mode",mode );
+		int count = session.update("board.addLikeHate", map);
+		session.commit();
+		System.out.println(count);
+		
 	}
 
 	public int selectLikeHate(int bno, int mode) {
 		int result = 0;
-		String sql;
-		if (mode == 0)
-			sql = "select blike from board where bno=?";
-		else
-			sql = "select bhate from board where bno=?";
-
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			pstmt = manager.getConn().prepareStatement(sql);
-			pstmt.setInt(1, bno);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				result = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			manager.close(pstmt, rs);
-		}
-
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bno",bno );
+		map.put("mode",mode );
+		result = session.selectOne("board.selectLikeHate", map);
 		return result;
 	}
 
