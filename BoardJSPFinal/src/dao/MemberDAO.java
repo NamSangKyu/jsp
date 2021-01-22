@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -48,45 +49,13 @@ public class MemberDAO {
 	}
 
 	public void updateMember(MemberVO vo) throws MemberException {
-		String sql = "update member set pass=?,name=?,age=? where id=?";
-		PreparedStatement pstmt = null;
-		try {
-			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
-			pstmt.setString(1, vo.getPass());
-			pstmt.setString(2, vo.getName());
-			pstmt.setInt(3, vo.getAge());
-			pstmt.setString(4, vo.getId());
-			
-			int count = pstmt.executeUpdate();
-			if(count == 0)
-				throw new MemberException("수정할 회원정보가 없습니다.");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		session.update("member.updateMember",vo);
+		session.commit();
 	}
 
-	public ArrayList<MemberVO> selectAllMemberVO() {
-		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
-		String sql = "select id, name, pass, age, grade_name "
-				+ "from member, grade_list where grade_no = grade order by grade desc";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		 
-		try {
-			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(new MemberVO(rs.getString(1), null, rs.getString(2), 
-						rs.getInt(4), rs.getString(5)));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			DBManager.getInstance().close(pstmt, rs);
-		}
-		
+	public List<MemberVO> selectAllMemberVO() {
+		//반드시 ArrayList 사용할 필요는 없음
+		List<MemberVO> list = session.selectList("member.selectAllMember");
 		return list;
 	}
 
