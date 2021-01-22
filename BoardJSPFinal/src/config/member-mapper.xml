@@ -33,7 +33,7 @@
  	 			</when>
  	 			<otherwise>
  	 				select id, name, pass, age, grade_name from member, grade_list 
- 	 				where grade_no = grade and grade = #{search} order by grade desc
+ 	 				where grade_no = grade and grade_name like '%'||#{search}||'%' order by grade desc
  	 			</otherwise>
  	 		</choose>
  	 	

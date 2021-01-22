@@ -78,6 +78,8 @@ public class HandlerMapping {
 		case "memberAdminMain.do":
 			controller = new MemberAdminController();
 			break;
+		case "memberSerach.do":
+			controller = new MemberSearchController();
 		}
 		return controller;
 	}
