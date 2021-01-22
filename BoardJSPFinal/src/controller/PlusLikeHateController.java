@@ -18,6 +18,7 @@ public class PlusLikeHateController implements Controller {
 				response.getWriter().write("false");
 				return null;
 			}
+			
 			int mode = Integer.parseInt(request.getParameter("mode"));
 			int bno = Integer.parseInt(request.getParameter("bno"));
 			BoardDAO.getInstance().addLikeHate(bno,mode);
