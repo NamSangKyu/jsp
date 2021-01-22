@@ -58,6 +58,10 @@ public class MemberService {
 	public List<MemberVO> searchMember(String kind, String search){
 		return dao.searchMember(kind,search);
 	}
+
+	public int deleteMember(String id) {
+		return dao.deleteMember(id);
+	}
 	
 	
 }

@@ -84,6 +84,9 @@ public class HandlerMapping {
 		case "memberAjaxUpdate.do":
 			controller = new MemberAjaxUpdateController();
 			break;
+		case "memberAjaxDelete.do":
+			controller = new MemberAjaxDeleteController();
+			break;
 		}
 		return controller;
 	}
