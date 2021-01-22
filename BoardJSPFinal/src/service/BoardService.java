@@ -23,6 +23,7 @@ public class BoardService {
 		int bno = dao.getBoardNO(); //게시글 번호 뽑음
 		dto.setBno(bno);//게시글 번호 셋팅
 		dao.insertBoardDTO(dto);
+		System.out.println(dto.toString());
 		return dao.selectBoardDTO(bno);
 	}
 	

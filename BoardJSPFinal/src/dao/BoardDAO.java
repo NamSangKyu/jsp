@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSession;
+
 import config.DBManager;
 import dto.BoardDTO;
 import dto.CommentDTO;
@@ -14,9 +16,10 @@ import dto.FileDTO;
 public class BoardDAO {
 	private static BoardDAO instance = new BoardDAO();
 	private DBManager manager;
-
+	private SqlSession session;
 	private BoardDAO() {
 		manager = DBManager.getInstance();
+		session = DBManager.getInstance().getSession();
 	}
 
 	public static BoardDAO getInstance() {
@@ -27,65 +30,17 @@ public class BoardDAO {
 
 	// 게시글 번호 뽑는 부분
 	public int getBoardNO() {
-		String sql = "select bno_seq.nextval from dual";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int result = 0;
-		try {
-			pstmt = manager.getConn().prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			if (rs.next())
-				result = rs.getInt(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			manager.close(pstmt, rs);
-		}
+		int result = session.selectOne("board.getBoardNO"); 
 		return result;
 	}
 
 	public void insertBoardDTO(BoardDTO dto) {
-		String sql = "insert into board(bno,title,writer,content) values(?,?,?,?)";
-		PreparedStatement pstmt = null;
-		try {
-			Connection conn = manager.getConn();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, dto.getBno());
-			pstmt.setString(2, dto.getTitle());
-			pstmt.setString(3, dto.getWriter());
-			pstmt.setString(4, dto.getContent());
-
-			int count = pstmt.executeUpdate();
-			conn.commit();
-			System.out.println(count + "건 게시글 등록 완료");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			manager.close(pstmt, null);
-		}
+		session.insert("board.insertBoard", dto);
+		session.commit();
 	}
 
 	public BoardDTO selectBoardDTO(int bno) {
-		String sql = "select * from board where bno = ?";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		BoardDTO dto = null;
-		try {
-			pstmt =manager.getConn().prepareStatement(sql);
-			pstmt.setInt(1, bno);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				dto = new BoardDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
-						rs.getString(6), rs.getInt(7), rs.getInt(8));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			manager.close(pstmt, rs);
-		}
-		System.out.println(dto.toString());
-		return dto;
+		return session.selectOne("board.selectBoardNo", bno);
 	}
 
 	public void addCount(int bno) {
