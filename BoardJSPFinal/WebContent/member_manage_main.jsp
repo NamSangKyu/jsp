@@ -183,7 +183,7 @@ td{
 			<hr>
 			<div id="content_area">
 				<table>
-				<c:forEach id="member" items="${requestScope.list }">
+				<c:forEach var="member" items="${requestScope.list }">
 					<tr> 
 							<td>${member.id }
 							<input type="hidden" name="id" value="${member.id }"></td>

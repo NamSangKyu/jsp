@@ -75,6 +75,9 @@ public class HandlerMapping {
 		case "deleteBoard.do":
 			controller = new DeleteBoardController();
 			break;
+		case "memberAdminMain.do":
+			controller = new MemberAdminController();
+			break;
 		}
 		return controller;
 	}
