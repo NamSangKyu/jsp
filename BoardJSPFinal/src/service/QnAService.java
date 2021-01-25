@@ -31,7 +31,7 @@ public class QnAService {
 		return dao.selectQnaList(id, pageNo);
 	}
 
-	public ArrayList<QnaDTO> selectNoAnswerList() {
+	public List<QnaDTO> selectNoAnswerList() {
 		return dao.selectNoAnswerList();
 	}
 

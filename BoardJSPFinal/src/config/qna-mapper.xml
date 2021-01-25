@@ -15,11 +15,35 @@
 	</select>
 	<select id="selectQnaAdminList" parameterType="int" resultType="dto.QnaDTO">
 		select qno, title, content, wdate, writer, status, response from 
-		(select ceil(rownum / 5) as page, qno, title, 
+		(select ceil(rownum / 7) as page, qno, title, 
 		content, wdate, writer, status, response from 
 		(select * from qna order by status asc, qno desc)) where page = #{pageNo}
 	</select>
+	<select id="selectNoAnswerList" resultType="dto.QnaDTO">
+		select * from qna where status in(0,1)
+	</select>
+	<select id="selectCountQna" resultType="int">
+		select count(*) from qna
+	</select>
+	<select id="selectQna" parameterType="int" resultType="dto.QnaDTO">
+		select qno, title, content, wdate,
+		 writer, status, nvl(response,'답변 없음') from qna where qno = #{qno}
+	</select>
+	<update id="updateResponse" parameterType="map">
+		update qna set response = response || #{answer}, status=2 where qno = #{qno}
+	</update>
+	<update id="updateQnAStatus" parameterType="int">
+		update qna set status = 1 where qno = #{qno} and status not in(1,2)
+	</update>
 </mapper>
+
+
+
+
+
+
+
+
 
 
 

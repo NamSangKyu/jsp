@@ -42,7 +42,7 @@
 				<td>
 				<c:choose>
 					<c:when test="${dto.status==0}">않읽음</c:when>
-					<c:when test="${dto.status==1}">읽음></c:when>
+					<c:when test="${dto.status==1}">읽음</c:when>
 					<c:otherwise>답변완료</c:otherwise>
 				</c:choose>
 				</td>
@@ -72,8 +72,6 @@
 					<c:if test="${page.nextPageGroup }">
 						<a href="qnaAdminView.do?pageNo=${page.endPageOfPageGroup+1}">▶</a>
 					</c:if>
-					<br>
-					${page.startPageOfPageGroup },${page.endPageOfPageGroup },${page.totalPageGroup }
 				</td>
 			</tr>
 		</table>

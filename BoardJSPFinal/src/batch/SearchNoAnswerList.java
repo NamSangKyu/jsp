@@ -1,6 +1,6 @@
 package batch;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -13,7 +13,7 @@ public class SearchNoAnswerList implements Job{
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		ArrayList<QnaDTO> list = null;
+		List<QnaDTO> list = null;
 		list = QnAService.getInstance().selectNoAnswerList();
 		System.out.println(list.toString());
 	}
