@@ -59,6 +59,13 @@
  	 	<select id="selectCommentDTO" parameterType="int" resultType="dto.CommentDTO">
  	 		select * from board_comment where bno = #{bno} order by cno desc
  	 	</select>
+ 	 	<select id="commentCount" parameterType="int" resultType="int">
+ 	 		select count(*) from board_comment where bno = #{bno}
+ 	 	</select>
+ 	 	<select id="getCount" resultType="int">
+ 	 		select count(*) from board
+ 	 	</select>
+
 </mapper>
 
 

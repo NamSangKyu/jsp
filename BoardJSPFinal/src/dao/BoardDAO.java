@@ -91,39 +91,14 @@ public class BoardDAO {
 	}
 	public int commentCount(int bno) {
 		int result = 0;
-		String sql = "select count(*) from board_comment where bno = ?";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			pstmt = DBManager.getInstance().getConn().prepareStatement(sql);
-			pstmt.setInt(1, bno);
-			rs = pstmt.executeQuery();
-			if(rs.next())
-				result = rs.getInt(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			DBManager.getInstance().close(pstmt, rs);
-		}
+		result = session.selectOne("board.commentCount", bno);
 		return result;
 	}
 	//전체 게시글 개수
 	public int getCount() {
-		String sql = "select count(*) from board";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		
 		int result = 0;
-		try {
-			pstmt = manager.getConn().prepareStatement(sql);
-			rs  = pstmt.executeQuery();
-			if(rs.next())
-				result = rs.getInt(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			manager.close(pstmt, rs);
-		}
+		result = session.selectOne("board.getCount");
 		return result;		
 	}
 
