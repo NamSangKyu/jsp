@@ -73,49 +73,20 @@ public class BoardDAO {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pageNo", pageNo);
 		map.put("mode", mode);
-		return session.selectList("selectBoardList", map);
+		return session.selectList("board.selectBoardList", map);
 	}
 
 	public int insertBoardComment(CommentDTO dto) {
-		String sql = "insert into board_comment(cno, bno, writer, content) values(cno_seq.nextval,?,?,?)";
-		PreparedStatement pstmt = null;
 		int count = 0;
-		
-		try {
-			pstmt = manager.getConn().prepareStatement(sql);
-			pstmt.setInt(1, dto.getBno());
-			pstmt.setString(2, dto.getWriter());
-			pstmt.setString(3, dto.getContent());
-			count = pstmt.executeUpdate();
-			manager.getConn().commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			manager.close(pstmt, null);
-		}
+		count = session.insert("board.insertBoardComment", dto);		
 		return count;
 	}
 
-	public ArrayList<CommentDTO> selectCommentDTO(int bno) {
-		String sql = "select * from board_comment where bno = ? order by cno desc";
-		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			pstmt = manager.getConn().prepareStatement(sql);
-			pstmt.setInt(1, bno);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				list.add(new CommentDTO(rs.getInt(1),rs.getInt(2), 
-						rs.getString(3),rs.getString(4),rs.getString(5),
-						rs.getInt(6), rs.getInt(7)));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			manager.close(pstmt, rs);
-		}
+	public List<CommentDTO> selectCommentDTO(int bno) {
+		List<CommentDTO> list = null;
+		list = session.selectList("board.selectCommentDTO", bno);
+		System.out.println(list);
+		System.out.println(list.size());
 		return list;
 	}
 	public int commentCount(int bno) {

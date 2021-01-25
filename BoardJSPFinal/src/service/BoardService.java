@@ -41,7 +41,7 @@ public class BoardService {
 		return dao.insertBoardComment(dto);
 	}
 	
-	public ArrayList<CommentDTO> selectCommentDTO(int bno){
+	public List<CommentDTO> selectCommentDTO(int bno){
 		return dao.selectCommentDTO(bno);
 	}
 	public void insertFileList(ArrayList<FileDTO> fList) {

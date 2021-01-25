@@ -53,6 +53,12 @@
  	 		 </choose>
  	 		  where pagenum = #{pageNo} 	 	
  	 	</select>
+ 	 	<insert id="insertBoardComment" parameterType="dto.CommentDTO">
+ 	 		insert into board_comment(cno, bno, writer, content) values(cno_seq.nextval,#{bno},#{writer},#{content})
+ 	 	</insert>
+ 	 	<select id="selectCommentDTO" parameterType="int" resultType="dto.CommentDTO">
+ 	 		select * from board_comment where bno = #{bno} order by cno desc
+ 	 	</select>
 </mapper>
 
 
