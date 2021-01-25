@@ -17,6 +17,7 @@
   <mappers>
     <mapper resource="config/member-mapper.xml"/>
     <mapper resource="config/board-mapper.xml"/>
+    <mapper resource="config/qna-mapper.xml"/>
     
   </mappers>
 </configuration>

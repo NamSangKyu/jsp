@@ -1,6 +1,7 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dao.MemberDAO;
 import dao.QnADAO;
@@ -23,7 +24,7 @@ public class QnAService {
 		return dao.insertQna(dto);
 	}
 
-	public ArrayList<QnaDTO> selectQnaList(String id, int pageNo,String grade) {
+	public List<QnaDTO> selectQnaList(String id, int pageNo,String grade) {
 		
 		if(grade.equals("master"))
 			return dao.selectQnaAdminList(pageNo);

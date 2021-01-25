@@ -1,10 +1,9 @@
 package controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.Session;
 
 import dto.QnaDTO;
 import model.ModelAndView;
@@ -21,7 +20,7 @@ public class QnaAdminViewController implements Controller {
 		int pageNo = 1;
 		if(request.getParameter("pageNo") != null)
 			 pageNo = Integer.parseInt(request.getParameter("pageNo"));
-		ArrayList<QnaDTO> list = QnAService.getInstance().selectQnaList(id, pageNo, grade);
+		List<QnaDTO> list = QnAService.getInstance().selectQnaList(id, pageNo, grade);
 		int count = QnAService.getInstance().selectCount();
 		PaggingVO vo = new PaggingVO(count, pageNo);
 		System.out.println(vo);

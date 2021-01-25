@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +26,7 @@ public class QnaViewController implements Controller {
 		//단. 관리자일떄는 모든 사용자의 문의 목록을 읽어옴
 		//문의 목록은 request/session 영역에 저장
 		String grade = (String) request.getSession().getAttribute("grade");
-		ArrayList<QnaDTO> list = QnAService.getInstance().selectQnaList(id,pageNo,grade);
+		List<QnaDTO> list = QnAService.getInstance().selectQnaList(id,pageNo,grade);
 		request.setAttribute("list", list);
 		//페이지는 qna.jsp로 이동
 		view.setPage("qna.jsp");
