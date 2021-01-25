@@ -47,7 +47,7 @@ public class BoardService {
 	public void insertFileList(ArrayList<FileDTO> fList) {
 		dao.insertFileList(fList);
 	}
-	public ArrayList<FileDTO> selectFileList(int bno) {
+	public List<FileDTO> selectFileList(int bno) {
 		return dao.selectFileList(bno);
 	}
 	public void deleteFileList(int bno) {

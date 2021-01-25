@@ -96,77 +96,32 @@ public class BoardDAO {
 	}
 	//전체 게시글 개수
 	public int getCount() {
-		
 		int result = 0;
 		result = session.selectOne("board.getCount");
 		return result;		
 	}
 
 	public void insertFileList(ArrayList<FileDTO> fList) {
-		String sql = "insert into board_file_list values(?,?,?)";
-		PreparedStatement pstmt = null;
-		
-		try {
-			for(int i=0;i<fList.size();i++) {
-				pstmt = manager.getConn().prepareStatement(sql);
-				pstmt.setInt(1, fList.get(i).getBno());
-				pstmt.setString(2, fList.get(i).getWriter());
-				pstmt.setString(3, fList.get(i).getFileName());
-				pstmt.executeUpdate();
-				manager.getConn().commit();
-			}
-			pstmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
+			for(int i=0;i<fList.size();i++) 
+				session.insert("board.insertFileList",fList.get(i));
+			session.commit();
 	}
 
-	public ArrayList<FileDTO> selectFileList(int bno) {
-		String sql = "select * from board_file_list where bno = ?";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ArrayList<FileDTO> list = new ArrayList<FileDTO>();
-		try {
-			pstmt = manager.getConn().prepareStatement(sql);
-			pstmt.setInt(1, bno);
-			
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				list.add(new FileDTO(rs.getInt(1),rs.getString(2), rs.getString(3)));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
+	public List<FileDTO> selectFileList(int bno) {
+		List<FileDTO> list = null;
+		list = session.selectList("board.selectFileList", bno);
 		return list;
 	}
 
-	public void deleteFileList(int bno) {
-		String sql = "delete from board_file_list where bno = ?";
-		PreparedStatement pstmt = null;
-		
-		try {
-			pstmt = manager.getConn().prepareStatement(sql);
-			pstmt.setInt(1, bno);
-			int count = pstmt.executeUpdate();
-			System.out.println("파일 DB 삭제 결과 : "+count);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public int deleteFileList(int bno) {
+		int count = session.delete("board.deleteFileList", bno);
+		session.commit();
+		return count;
 	}
-	public void deleteBoard(int bno) {
-		String sql = "delete from board where bno = ?";
-		PreparedStatement pstmt = null;
-		
-		try {
-			pstmt = manager.getConn().prepareStatement(sql);
-			pstmt.setInt(1, bno);
-			int count = pstmt.executeUpdate();
-			System.out.println("게시글 삭제 결과 : "+count);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public int deleteBoard(int bno) {
+		int count = session.delete("board.deleteBoard", bno);
+		session.commit();
+		return count;
 		
 	}
 }

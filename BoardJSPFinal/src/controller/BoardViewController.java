@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +23,7 @@ public class BoardViewController implements Controller {
 			request.setAttribute("board", board);
 			List<CommentDTO> list = BoardService.getInstance().selectCommentDTO(bno);
 			request.setAttribute("comment", list);
-			ArrayList<FileDTO> fList = BoardService.getInstance().selectFileList(bno);
+			List<FileDTO> fList = BoardService.getInstance().selectFileList(bno);
 			request.setAttribute("file", fList);
 		}
 		return new ModelAndView("board_detail_view.jsp", false);

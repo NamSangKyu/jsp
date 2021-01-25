@@ -65,7 +65,18 @@
  	 	<select id="getCount" resultType="int">
  	 		select count(*) from board
  	 	</select>
-
+ 	 	<insert id="insertFileList" parameterType="dto.FileDTO">
+ 	 		insert into board_file_list values(#{bno},#{writer},#{fileName})
+ 	 	</insert>
+ 	 	<select id="selectFileList" parameterType="int" resultType="dto.FileDTO">
+ 	 		select * from board_file_list where bno = #{bno}
+ 	 	</select>
+		<delete id="deleteFileList" parameterType="int">
+			delete from board_file_list where bno = #{bno}
+		</delete>
+		<delete id="deleteBoard" parameterType="int">
+			delete from board where bno = #{bno}
+		</delete>
 </mapper>
 
 

@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +17,7 @@ public class DeleteBoardController implements Controller {
 		
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		ArrayList<FileDTO> list = BoardService.getInstance().selectFileList(bno);
+		List<FileDTO> list = BoardService.getInstance().selectFileList(bno);
 		for(int i=0;i<list.size();i++) {
 			File file = new File("c:\\fileupload\\"+list.get(i).getWriter()
 					+"\\"+list.get(i).getFileName());
